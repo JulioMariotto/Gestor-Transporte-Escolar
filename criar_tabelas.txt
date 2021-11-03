@@ -1,0 +1,176 @@
+DROP SCHEMA IF EXISTS teste;
+CREATE SCHEMA teste;
+
+use teste;
+
+DROP TABLE IF EXISTS usuario;
+DROP TABLE IF EXISTS aluno;
+DROP TABLE IF EXISTS contato;
+DROP TABLE IF EXISTS escola;
+DROP TABLE IF EXISTS itinerario;
+DROP TABLE IF EXISTS pagamento;
+DROP TABLE IF EXISTS motorista;
+DROP TABLE IF EXISTS veiculo;
+DROP TABLE IF EXISTS dispesa;
+DROP TABLE IF EXISTS abastecimento;
+DROP TABLE IF EXISTS manutencao;
+
+CREATE TABLE usuario (
+  id_usuario int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  login_usuario varchar(50) DEFAULT NULL,
+  senha_usuario varchar(50) DEFAULT NULL,
+  nome_usuario varchar(100) DEFAULT NULL
+) ;
+
+INSERT INTO usuario VALUES (1,'juliomariotto@hotmail.com','Julio!050595','Julio Mariotto');
+
+
+
+CREATE TABLE escola (
+  id_escola int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  nome_escola varchar(30) DEFAULT NULL,
+  endereco_escola varchar(60) DEFAULT NULL,
+  telefone_escola varchar(16) DEFAULT NULL
+) ;
+
+CREATE TABLE motorista (
+  id_motorista INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  nome_motorista VARCHAR(30) NULL,
+  cnh_motorista VARCHAR(15) NULL,
+  telefone_motorista VARCHAR(15) NULL,
+  endereco_motorista VARCHAR(60) NULL
+);
+
+CREATE TABLE veiculo (
+  id_veiculo INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  modelo_veiculo VARCHAR(45) NULL,
+  cor_veiculo VARCHAR(15) NULL,
+  numero_veiculo VARCHAR(5) NULL,
+  placa_veiculo VARCHAR(10) NULL,
+  num_licenca_veiculo VARCHAR(15) NULL,
+  capacidade_veiculo INT NULL,
+  status_veiculo INT(2) NOT NULL DEFAULT 1,
+  id_motorista_veiculo INT(11) NOT NULL,
+  FOREIGN KEY (id_motorista_veiculo) 
+	REFERENCES motorista (id_motorista) 
+		ON DELETE CASCADE 
+        ON UPDATE NO ACTION
+) ;
+CREATE TABLE aluno (
+  id_aluno int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  nome_aluno varchar(60) DEFAULT NULL,
+  telefone_aluno varchar(20) DEFAULT NULL,
+  endereco_aluno varchar(100) DEFAULT NULL,
+  nome_responsavel varchar(60) DEFAULT NULL,
+  cpf_responsavel varchar(14) DEFAULT NULL,
+  id_escola_aluno INT(11) NOT NULL,
+  periodo_aluno varchar(30) DEFAULT NULL,
+  turma_aluno varchar(30) DEFAULT NULL,
+  horario_casa_ida time DEFAULT NULL,
+  horario_escola_ida time DEFAULT NULL,
+  horario_casa_volta time DEFAULT NULL,
+  horario_escola_volta time DEFAULT NULL,
+  valor_mensalidade_aluno float DEFAULT NULL,
+  vencimento_aluno int(11) DEFAULT '10',
+  data_inicio_aluno date DEFAULT NULL,
+  data_fim_aluno date DEFAULT '2000-01-01',
+  status_aluno int(2) DEFAULT '1',
+  data_nasc_aluno date DEFAULT NULL,
+  id_veiculo_aluno int(11) NOT NULL,
+  FOREIGN KEY (id_escola_aluno) 
+	REFERENCES escola (id_escola) 
+		ON DELETE NO ACTION 
+		ON UPDATE NO ACTION,
+  FOREIGN KEY (id_veiculo_aluno) 
+	REFERENCES veiculo (id_veiculo) 
+		ON DELETE NO ACTION 
+		ON UPDATE NO ACTION              
+) ;
+
+CREATE TABLE pagamento (
+  id_pagamento int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  id_aluno int(11) NOT NULL,
+  valor_pago float NOT NULL,
+  mes_referencia date NOT NULL,
+  data_pagamento date NOT NULL
+) ;
+
+
+
+CREATE TABLE contato (
+  id_contato INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  id_aluno_contato INT(45) NOT NULL,
+  nome_contato VARCHAR(65) DEFAULT NULL,
+  telefone_contato VARCHAR(16) DEFAULT NULL,
+  parentesco VARCHAR(30) DEFAULT NULL,
+  FOREIGN KEY (id_aluno_contato) 
+	REFERENCES aluno (id_aluno) 
+		ON DELETE CASCADE 
+        ON UPDATE NO ACTION
+) ;
+
+CREATE TABLE itinerario (
+  id_itinerario INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  id_aluno_itinerario INT(11) PRIMARY KEY NOT NULL,
+  horario_rota time NOT NULL,
+  destino_rota VARCHAR(100) NOT NULL,
+  FOREIGN KEY (id_aluno_itinerario) 
+	REFERENCES aluno (id_aluno) 
+		ON DELETE CASCADE 
+        ON UPDATE NO ACTION
+) ;
+
+CREATE TABLE dispesa (
+  id_dispesa INT(11) PRIMARY KEY PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  valor_dispesa FLOAT NULL,
+  data_dispesa DATE NULL,
+  descricao_dispesa VARCHAR(120) NULL
+) ;
+
+CREATE TABLE abastecimento (
+  id_dispesa_abastecimento INT(11) PRIMARY KEY NOT NULL,
+  id_veiculo_abastecimento INT(11) NOT NULL,
+  km_abastecimento INT NULL,
+  litros_abastecimento FLOAT NULL,
+  posto_abastecimento VARCHAR(30) NULL,  
+  FOREIGN KEY (id_veiculo_abastecimento) 
+	REFERENCES veiculo (id_veiculo) 
+		ON DELETE NO ACTION 
+        ON UPDATE NO ACTION,
+  FOREIGN KEY (id_dispesa_abastecimento) 
+	REFERENCES dispesa (id_dispesa) 
+		ON DELETE CASCADE 
+        ON UPDATE NO ACTION
+) ;
+
+CREATE TABLE manutencao (
+  id_dispesa_manutencao INT(11) PRIMARY KEY NOT NULL,
+  id_veiculo_manutencao INT(11) NOT NULL,
+  problema_manutencao VARCHAR(120) NULL,
+  km_manutencao VARCHAR(11) NULL,
+  FOREIGN KEY (id_dispesa_manutencao) 
+	REFERENCES dispesa (id_dispesa) 
+		ON DELETE CASCADE 
+        ON UPDATE NO ACTION,
+  FOREIGN KEY (id_veiculo_manutencao) 
+	REFERENCES `veiculo` (`id_veiculo`) 
+		ON DELETE CASCADE 
+        ON UPDATE NO ACTION
+);
+
+INSERT INTO `teste`.`escola` (`nome_escola`, `endereco_escola`, `telefone_escola`) VALUES ('Padre Arnaldo Jansen', 'R. Scharfenberg de Quadros, 66 - Centro, São José dos Pinhais - PR', '(41) 3382-7754');
+INSERT INTO `teste`.`escola` (`nome_escola`, `endereco_escola`, `telefone_escola`) VALUES ('Costa Viana', 'R. Paulino de Siqueira Cortês, 2685 - Vl Braga, São José dos Pinhais - PR, 83005-030', '(41) 3283-5583');
+INSERT INTO `teste`.`escola` (`nome_escola`, `endereco_escola`, `telefone_escola`) VALUES ('Silveira da Motta', 'Largo Ver. Segismundo Salata, 1123 - Centro, São José dos Pinhais - PR, 83005-115', '(41) 3382-1241');
+
+
+ALTER TABLE escolar.abastecimento ENGINE = InnoDB ;
+ALTER TABLE escolar.aluno ENGINE = InnoDB ;
+ALTER TABLE escolar.dispesa ENGINE = InnoDB ;
+ALTER TABLE escolar.manutencao ENGINE = InnoDB ;
+ALTER TABLE escolar.motorista ENGINE = InnoDB ;
+ALTER TABLE escolar.pagamento ENGINE = InnoDB ;
+ALTER TABLE escolar.escola ENGINE = InnoDB ;
+ALTER TABLE escolar.contato ENGINE = InnoDB ;
+ALTER TABLE escolar.itinerario ENGINE = InnoDB ;
+ALTER TABLE escolar.usuario ENGINE = InnoDB ;
+ALTER TABLE escolar.veiculo ENGINE = InnoDB ;
