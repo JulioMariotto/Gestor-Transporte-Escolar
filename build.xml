@@ -7,8 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="Escolar232_dev" default="default" basedir=".">
-    <description>Builds, tests, and runs the project Escolar232_dev.</description>
+<project name="Gestor_Escolar" default="default" basedir=".">
+    <description>Builds, tests, and runs the project Gestor Escolar.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 
