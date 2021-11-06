@@ -9,6 +9,8 @@ import beans.Dispesa;
 import beans.Manutencao;
 import beans.Veiculo;
 import daos.ManutencaoDAO;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,6 +47,13 @@ public class ManutencaoFacade {
     public static void remover(int idDispesa){
         ManutencaoDAO dao = new ManutencaoDAO();
         dao.remove(idDispesa);
+    }
+
+    public static double totalGastoMes() {
+       SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd"); 
+       String data = fmt.format(new Date());
+       ManutencaoDAO dao = new ManutencaoDAO();
+       return dao.totalGastoManutencoes(data.substring(0, 8) + "01", data.substring(0, 8) + "31");
     }
     
     

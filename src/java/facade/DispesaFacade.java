@@ -69,7 +69,7 @@ public class DispesaFacade {
     
     public static void deletar(int id){
         DispesaDAO dao = new DispesaDAO();
-        AbastecimentosFacade.remover(id);
+        AbastecimentosFacade.removerAbastecimento(id);
         ManutencaoFacade.remover(id);
         dao.excluir(id);
     }

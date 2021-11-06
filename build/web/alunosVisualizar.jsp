@@ -55,9 +55,8 @@
                 <p><strong>Endereço: </strong>${aluno.endereco}</p>
                 <p><strong>Telefone: </strong>${aluno.telefone}</p>
                 <p><strong>Data de Nascimento: </strong>${fn:substring(aluno.dataNascimento, 8, 10)}/${fn:substring(aluno.dataNascimento, 5, 7)}/${fn:substring(aluno.dataNascimento, 0, 4)}</p>
-               
-                    <p><strong>Aluno desde </strong> ${fn:substring(aluno.dataInicio, 8, 10)}/${fn:substring(aluno.dataInicio, 5, 7)}/${fn:substring(aluno.dataInicio, 0, 4)} <strong>até</strong> <c:if test="${aluno.dataFim != '2000-01-01'}" > ${aluno.dataFim}</c:if><c:if test="${aluno.dataFim == '2000-01-01'}" > Atualmente </c:if></p>
-                
+                <p><strong>Aluno desde </strong> ${fn:substring(aluno.dataInicio, 8, 10)}/${fn:substring(aluno.dataInicio, 5, 7)}/${fn:substring(aluno.dataInicio, 0, 4)} <strong>até</strong> <c:if test="${aluno.dataFim != '2000-01-01'}" > ${aluno.dataFim}</c:if><c:if test="${aluno.dataFim == '2000-01-01'}" > Atualmente </c:if></p>
+                <p><strong>Veículo: </strong>${aluno.veiculo.numero} - ${aluno.veiculo.modelo}</p>
                     
                 <br><br>
                 

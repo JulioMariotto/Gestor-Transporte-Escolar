@@ -119,7 +119,7 @@
                       <th>Telefone</th>
                       <th>Escola</th>
                       <th>Período</th>
-                      <th>Vencimento</th>
+                      <th>Veículo</th>
                       <th>Mensalidade</th>
                       <!--<th>Ação</th>-->
                     </tr>
@@ -131,7 +131,7 @@
                       <td>${a.telefone}</td>
                       <td>${a.escola.nome}</td>
                       <td>${a.periodo}</td>
-                      <td>${a.vencimento}</td>
+                      <td>${a.veiculo.numero}</td>
                       <td>${a.getMensalidadeFormated()}</td>
                       <td><a class="icones-table verde" href="Alunos?action=visualizar&id=${a.id}" title="Visualizar"><span class="far fa-eye"></span></a></td>
                     </tr>

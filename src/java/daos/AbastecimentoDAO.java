@@ -43,6 +43,7 @@ public class AbastecimentoDAO {
     private final String selectAbastecimento = "SELECT * FROM abastecimento WHERE id_dispesa_abastecimento = ?";
     private final String selectTotalAbastecidoPeriodo = "SELECT SUM(litros_abastecimento) FROM abastecimento INNER JOIN dispesa on id_dispesa_abastecimento = id_dispesa AND data_dispesa BETWEEN ? AND ?";
     private final String selectTotalAbastecidoVeiculoPeriodo = "SELECT SUM(litros_abastecimento) FROM abastecimento INNER JOIN dispesa on id_dispesa_abastecimento = id_dispesa AND id_veiculo_abastecimento = ? AND data_dispesa BETWEEN ? AND ?";
+    private final String selectValorTotalAbastecidoPeriodo = "SELECT SUM(valor_dispesa) FROM abastecimento INNER JOIN dispesa on id_dispesa_abastecimento = id_dispesa AND data_dispesa BETWEEN ? AND ?";
     private final String selectTotalRodadoVeiculoPeriodo = "SELECT MAX(km_abastecimento) - MIN(km_abastecimento) FROM abastecimento INNER JOIN dispesa on id_dispesa_abastecimento = id_dispesa AND id_veiculo_abastecimento = ? AND data_dispesa BETWEEN ? AND ?";
     private final String insertAbastecimento = "INSERT INTO abastecimento (id_dispesa_abastecimento, id_veiculo_abastecimento, km_abastecimento, litros_abastecimento, posto_abastecimento) VALUES (?, ?, ?, ?, ?)";
     private final String deleteAbastecimento = "DELETE FROM abastecimento WHERE id_dispesa_abastecimento = ?";
@@ -127,7 +128,6 @@ public class AbastecimentoDAO {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<Abastecimento> lista = new ArrayList();
         try{
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(insertAbastecimento);
@@ -224,6 +224,27 @@ public class AbastecimentoDAO {
             return rs.getInt(1);
         } catch (SQLException ex) {
             throw new RuntimeException("Erro ao listar o total rodado. "+ex.getMessage());
+        }finally{
+            if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
+            if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
+            if(con != null){try{con.close();}catch(SQLException ex){System.out.println("Erro ao fechar a Conexão. Ex="+ex.getMessage());}}
+        }
+    }
+
+    public double valorTotalAbastecidoPeriodo(String inicio, String fim) {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try{
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(selectValorTotalAbastecidoPeriodo);
+            stmt.setString(1, inicio);
+            stmt.setString(2, fim);
+            rs = stmt.executeQuery();
+            rs.next();
+            return (double)rs.getDouble(1);
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro ao listar o valor total abastecido. "+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}

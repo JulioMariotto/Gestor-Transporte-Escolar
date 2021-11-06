@@ -231,8 +231,8 @@
                 element += '<td>' + resposta[i].aluno.nome +'</td>';
                 element += '<td>' + resposta[i].valor_pago.toLocaleString("pt-br",{style: "currency", currency: "BRL"}) + '</td>';
                 element += '<td>' + resposta[i].mes_ref + '</td>';
-                element += '<td>' + resposta[i].data.substring(8, 10) + resposta[i].data.substring(5, 7) +  + resposta[i].data.substring(0, 4) +'</td>';
-                element += '<td><a class="icones-table vermelho" href="Entradas?action=delete&id=' + resposta[i].id + ' title="Remover"  onclick="return confirm(\'Tem certeza que deseja excluir este pagamento?\')"><span class="far fa-trash-alt"></span></a></td>';
+                element += '<td>' + resposta[i].data.substring(8, 10) + '/' + resposta[i].data.substring(5, 7) + '/' + resposta[i].data.substring(0, 4) +'</td>';
+                element += '<td><a class="icones-table vermelho" href="Entradas?action=delete&id=' + resposta[i].id + '" title="Remover"  onclick="return confirm(\'Tem certeza que deseja excluir este pagamento?\')"><span class="far fa-trash-alt"></span></a></td>';
                 element += '</tr>';
                 total = total + resposta[i].valor_pago;
             }

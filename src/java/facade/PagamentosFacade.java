@@ -6,6 +6,7 @@
 package facade;
 
 import beans.Pagamento;
+import beans.Veiculo;
 import daos.PagamentoDAO;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -87,5 +88,6 @@ public class PagamentosFacade {
         PagamentoDAO dao = new PagamentoDAO();
         return dao.totalRecebido();
     }
-        
+
+            
 }

@@ -71,11 +71,43 @@
                 
                 <br><br>
                 
+                <h2><strong>Alunos</strong></h2>
+                
+                <p>Quantidade: ${alunos.size()}</p>
+                <p>Total de mensalidades: <fmt:formatNumber type = "currency" value = "${totalMensalidades}" /></p>
+                <br>
+                <div class="tabela">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Telefone</th>
+                                <th>Escola</th>
+                                <th>Período</th>
+                                <th>Mensalidade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${alunos}" var="a">
+                                <tr>
+                                    <td>${a.nome}</td>
+                                    <td>${a.telefone}</td>
+                                    <td>${a.escola.nome}</td>
+                                    <td>${a.periodo}</td>
+                                    <td>${a.getMensalidadeFormated()}</td>
+                                    <td><a class="icones-table verde" href="Alunos?action=visualizar&id=${a.id}" title="Visualizar"><span class="far fa-eye"></span></a></td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+                <br><br>
+                
                 <h2><strong>Abastecimentos</strong></h2>
                 
                 <p>Quantidade: ${abastecimentos.size()}</p>
                 <p>Kilometros já rodados: ${rodado}</p>
-                <p>Média de consumo deste mês: <fmt:formatNumber type = "number" maxFractionDigits = "2" value = "${media}" />km/l</p>
+                <p>Média de consumo: <fmt:formatNumber type = "number" maxFractionDigits = "2" value = "${media}" />km/l</p>
                 <br>
                 <div class="tabela">
                     <table class="table">

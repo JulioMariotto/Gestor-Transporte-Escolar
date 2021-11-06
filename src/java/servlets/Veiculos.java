@@ -6,13 +6,16 @@
 package servlets;
 
 import beans.Abastecimento;
+import beans.Dispesa;
 import beans.LoginBean;
 import beans.Manutencao;
-import beans.Motorista;
 import beans.Veiculo;
 import facade.AbastecimentosFacade;
+import facade.AlunosFacade;
+import facade.DispesaFacade;
 import facade.ManutencaoFacade;
 import facade.MotoristasFacade;
+import facade.PagamentosFacade;
 import facade.VeiculoFacade;
 import java.io.IOException;
 import java.util.Arrays;
@@ -65,6 +68,10 @@ public class Veiculos extends HttpServlet {
                     switch(action){
                         case "listar":
                             request.setAttribute("veiculos", VeiculoFacade.buscar());
+                            request.setAttribute("rodadoMes", AbastecimentosFacade.totalRodadoMes());
+                            request.setAttribute("abastecidoMes", AbastecimentosFacade.totalAbastecidoMes());
+                            request.setAttribute("abastecidoMesValor", AbastecimentosFacade.valorAbastecidoMes());
+                            request.setAttribute("manutencaoMes", ManutencaoFacade.totalGastoMes());
                             RequestDispatcher rd1 = getServletContext().getRequestDispatcher("/veiculoListar.jsp");
                             rd1.forward(request, response);
                             break;
@@ -87,7 +94,10 @@ public class Veiculos extends HttpServlet {
                             String lic_veiculo = (String)request.getParameter("licenca");
                             int cap_veiculo = Integer.parseInt(request.getParameter("capacidade"));
                             int id_motorista = Integer.parseInt(request.getParameter("motorista"));
+                            int kilometragem = Integer.parseInt(request.getParameter("kilometragem"));
                             Veiculo v1 = VeiculoFacade.inserir(new Veiculo(0, num_veiculo, placa_veiculo, lic_veiculo, cap_veiculo, modelo_veiculo, cor_veiculo, MotoristasFacade.buscar(id_motorista)));
+                            Dispesa d = DispesaFacade.registrar(new Dispesa(0, 0.0, AbastecimentosFacade.getData(), "Registro da Kilometragem de veículo, NÃO EXCLUIR!"));
+                            AbastecimentosFacade.registrarAbastecimento(new Abastecimento(v1, d, kilometragem, 0, "Registro de KM"));
                             response.sendRedirect("Veiculos?action=visualizar&id="+ v1.getId());
                             break;
                         case "alterar":
@@ -111,26 +121,32 @@ public class Veiculos extends HttpServlet {
                         case "visualizar":
                             int id_veiculo_visualizar = Integer.parseInt(request.getParameter("id"));
                             Veiculo v2 = VeiculoFacade.buscar(id_veiculo_visualizar);
-                            List<Abastecimento> lista_abastecimentos = AbastecimentosFacade.listar(v2);
-                            List<Manutencao> lista_manutencoes = ManutencaoFacade.buscar(v2);
-                            int total_rodado = AbastecimentosFacade.totalRodado(v2);
-                            double media = AbastecimentosFacade.mediaMes(v2);
                             request.setAttribute("veiculo", v2);
-                            request.setAttribute("abastecimentos", lista_abastecimentos);
-                            request.setAttribute("manutencoes", lista_manutencoes);
-                            request.setAttribute("rodado", total_rodado);
-                            request.setAttribute("media", media);
+                            request.setAttribute("alunos", AlunosFacade.buscarAlunosVeiculo(v2));
+                            request.setAttribute("totalMensalidades", AlunosFacade.totalMensalidadesVeiculo(v2));
+                            request.setAttribute("abastecimentos", AbastecimentosFacade.listarAbastecimentosVeiculo(v2));
+                            request.setAttribute("manutencoes", ManutencaoFacade.buscar(v2));
+                            request.setAttribute("rodado", AbastecimentosFacade.totalRodadoVeiculo(v2));
+                            request.setAttribute("media", AbastecimentosFacade.media(v2));
                             RequestDispatcher rd4 = getServletContext().getRequestDispatcher("/veiculoVisualizar.jsp");
                             rd4.forward(request, response);
                             break;
                         default:
                             request.setAttribute("veiculos", VeiculoFacade.buscar());
+                            request.setAttribute("rodadoMes", AbastecimentosFacade.totalRodadoMes());
+                            request.setAttribute("abastecidoMes", AbastecimentosFacade.totalAbastecidoMes());
+                            request.setAttribute("abastecidoMesValor", AbastecimentosFacade.valorAbastecidoMes());
+                            request.setAttribute("manutencaoMes", ManutencaoFacade.totalGastoMes());
                             RequestDispatcher rd5 = getServletContext().getRequestDispatcher("/veiculoListar.jsp");
                             rd5.forward(request, response);
                     }
                 }
                 else {
                     request.setAttribute("veiculos", VeiculoFacade.buscar());
+                    request.setAttribute("rodadoMes", AbastecimentosFacade.totalRodadoMes());
+                    request.setAttribute("abastecidoMes", AbastecimentosFacade.totalAbastecidoMes());
+                    request.setAttribute("abastecidoMesValor", AbastecimentosFacade.valorAbastecidoMes());
+                    request.setAttribute("manutencaoMes", ManutencaoFacade.totalGastoMes());
                     RequestDispatcher rd1 = getServletContext().getRequestDispatcher("/veiculoListar.jsp");
                     rd1.forward(request, response);
                 }

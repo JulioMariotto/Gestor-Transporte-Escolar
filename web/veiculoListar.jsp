@@ -4,6 +4,7 @@
     Author     : julio
 --%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="beans.Veiculo"%>
 <%@page import="java.text.NumberFormat"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -55,6 +56,14 @@
             .vermelho, .vermelho:active, .vermelho:hover, .vermelho:focus {
                 color: #f44336;
             }
+            .especial-p {
+                float: left;
+                width: 25%;
+                /*text-align: center;*/
+            }
+            .botoes {
+                padding: 0;
+            }
         </style>
             
     </head>
@@ -64,9 +73,25 @@
         
         <div class="container" style="padding-top: 1%">
             
-            <h2>Veículos</h2>
-            <a href="Veiculos?action=form-novo"><button type="button" class="btn btn-success">Adicionar Veículo</button></a>
+            <div class="header">
+                <div class="col-md-12">
+                    <h2>Veículos</h2>
+                    <p class="especial-p">Rodado: <strong>${rodadoMes}Km</strong></p>
+                    <p class="especial-p">Abastecido:<strong><fmt:formatNumber value="${abastecidoMes}" type="number" maxFractionDigits="2"/>L (<fmt:formatNumber value="${abastecidoMesValor}" type="currency" />)</strong></p>
+                    <p class="especial-p">Manutenção:<strong><fmt:formatNumber value="${manutencaoMes}" type="currency" /></strong></p>
+                    <p class="especial-p">Média:<strong><fmt:formatNumber value="${rodadoMes/abastecidoMes}" type="number" maxFractionDigits="2"/>KM/L</strong></p>
+                </div>
+                <div class="botoes col-md-12">
+                    <div class="col-md-4">
+                        <a href="Veiculos?action=form-novo"><button type="button" class="btn btn-success">Adicionar Veículo</button></a>
+                    </div>
+                    
+                </div>
+                
+            </div>
+            
             <br><br>
+            
             <div class="tabela">
             <table class="table" style="max-height: 200px; overflow: auto">
               <thead>

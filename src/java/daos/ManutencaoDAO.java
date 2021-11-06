@@ -27,6 +27,7 @@ public class ManutencaoDAO {
     private final String selectManutencao = "SELECT * FROM manutencao WHERE id_dispesa_manutencao = ?";
     private final String selectManutencoes = "SELECT * FROM manutencao INNER JOIN dispesa ON id_dispesa_manutencao = id_dispesa ORDER BY data_dispesa DESC";
     private final String selectManutencoesVeiculo = "SELECT * FROM manutencao INNER JOIN dispesa ON id_dispesa_manutencao = id_dispesa AND id_veiculo_manutencao = ?  ORDER BY data_dispesa DESC";
+    private final String selectTotalManutencoes = "SELECT SUM(valor_dispesa) FROM manutencao INNER JOIN dispesa ON id_dispesa_manutencao = id_dispesa AND data_dispesa BETWEEN ? AND ? ORDER BY data_dispesa DESC";
     private final String selectManutencoesFiltoData = "SELECT * FROM manutencao INNER JOIN dispesa ON id_dispesa_manutencao = id_dispesa AND data_dispesa BETWEEN ? AND ? ORDER BY data_dispesa DESC";
     private final String insertManutencao = "INSERT INTO manutencao (id_dispesa_manutencao, id_veiculo_manutencao, problema_manutencao, km_manutencao) VALUES (?, ?, ?, ?)";
     private final String deleteManutencao = "DELETE FROM manutencao WHERE id_dispesa_manutencao = ?";
@@ -166,6 +167,27 @@ public class ManutencaoDAO {
         } catch (SQLException ex) {
             throw new RuntimeException("Erro ao remover uma manutencao. "+ex.getMessage());
         }finally{
+            if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
+            if(con != null){try{con.close();}catch(SQLException ex){System.out.println("Erro ao fechar a Conexão. Ex="+ex.getMessage());}}
+        }
+    }
+
+    public double totalGastoManutencoes(String inicio, String fim) {
+           Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try{
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(selectTotalManutencoes);
+            stmt.setString(1, inicio);
+            stmt.setString(2, fim);
+            rs = stmt.executeQuery();
+            rs.next();
+            return (double)rs.getDouble(1);
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro ao listar o total gasto em Manutenções. "+ex.getMessage());
+        }finally{
+            if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
             if(con != null){try{con.close();}catch(SQLException ex){System.out.println("Erro ao fechar a Conexão. Ex="+ex.getMessage());}}
         }

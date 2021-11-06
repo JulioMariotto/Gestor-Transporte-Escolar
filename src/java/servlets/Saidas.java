@@ -97,7 +97,7 @@ public class Saidas extends HttpServlet {
                                         int km = Integer.parseInt(request.getParameter("kilometragem"));
                                         double litros = Double.parseDouble(request.getParameter("litros"));
                                         String posto = request.getParameter("posto");
-                                        AbastecimentosFacade.registrar(new Abastecimento(VeiculoFacade.buscar(id_veiculo), d, km, litros, posto));
+                                        AbastecimentosFacade.registrarAbastecimento(new Abastecimento(VeiculoFacade.buscar(id_veiculo), d, km, litros, posto));
                                         break;
                                     case "manutencao":
                                         int id_veiculo1 = Integer.parseInt(request.getParameter("id_veiculo"));
@@ -118,7 +118,7 @@ public class Saidas extends HttpServlet {
                                 Dispesa d8 = DispesaFacade.buscar(id_visualizar);
                                 request.setAttribute("dispesa", d8);
                                 request.setAttribute("manutencao", ManutencaoFacade.buscar(d8.getId()));
-                                request.setAttribute("abastecimento", AbastecimentosFacade.listar(d8.getId()));
+                                request.setAttribute("abastecimento", AbastecimentosFacade.listarAbastecimento(d8.getId()));
                                 RequestDispatcher rd8 = getServletContext().getRequestDispatcher("/dispesaVisualizar.jsp");
                                 rd8.forward(request, response);
                                 break;    
@@ -239,7 +239,7 @@ public class Saidas extends HttpServlet {
                                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/rodagensListar.jsp");
                                     rd.forward(request, response);
     
-                                request.setAttribute("abastecimentos", AbastecimentosFacade.listar());
+                                request.setAttribute("abastecimentos", AbastecimentosFacade.listarAbastecimentosVeiculo());
                                 request.setAttribute("media", String.format("%.2f", AbastecimentosFacade.totalAbastecidoMes()));
                                 request.setAttribute("total", DispesaFacade.buscarDispesasAbastecimento());
                                 request.setAttribute("total_abastecido", String.format("%.2f", AbastecimentosFacade.totalAbastecidoMes()));

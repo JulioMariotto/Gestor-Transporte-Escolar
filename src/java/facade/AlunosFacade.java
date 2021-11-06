@@ -6,7 +6,10 @@
 package facade;
 
 import beans.Aluno;
+import beans.Veiculo;
 import daos.AlunoDAO;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,6 +52,17 @@ public class AlunosFacade {
     public static double totalAReceber() {
         AlunoDAO dao = new AlunoDAO();
         return dao.totalMensalidades();
+    }
+
+    public static List<Aluno> buscarAlunosVeiculo(Veiculo v) {
+        AlunoDAO dao = new AlunoDAO();
+        return dao.listarAlunosVeiculo(v.getId());
+    }
+
+   
+    public static double totalMensalidadesVeiculo(Veiculo v) {
+        AlunoDAO dao = new AlunoDAO();
+        return dao.totalMensalidadesVeiculo(v);
     }
 
 }

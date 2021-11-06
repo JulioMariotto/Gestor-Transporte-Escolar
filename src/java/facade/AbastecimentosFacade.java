@@ -6,7 +6,6 @@
 package facade;
 
 import beans.Abastecimento;
-import beans.Dispesa;
 import beans.Veiculo;
 import daos.AbastecimentoDAO;
 import java.text.SimpleDateFormat;
@@ -19,27 +18,27 @@ import java.util.List;
  */
 public class AbastecimentosFacade {
     
-    public static List<Abastecimento> listar(Veiculo v){
+    public static List<Abastecimento> listarAbastecimentosVeiculo(Veiculo v){
         AbastecimentoDAO dao = new AbastecimentoDAO();
         return dao.listaAbastecimentosVeiculo(v);
     }
     
-    public static List<Abastecimento> listar(){
+    public static List<Abastecimento> listarTodosAbastecimentos(){
         AbastecimentoDAO dao = new AbastecimentoDAO();
         return dao.listaAbastecimentos();
     }
     
-    public static Abastecimento listar(int id_dispesa){
+    public static Abastecimento listarAbastecimento(int id_dispesa){
         AbastecimentoDAO dao = new AbastecimentoDAO();
         return dao.listaAbastecimento(id_dispesa);
     }
     
-    public static Abastecimento registrar(Abastecimento a){
+    public static Abastecimento registrarAbastecimento(Abastecimento a){
         AbastecimentoDAO dao = new AbastecimentoDAO();
         return dao.registra(a);
     }
     
-    public static void remover(int id){
+    public static void removerAbastecimento(int id){
         AbastecimentoDAO dao = new AbastecimentoDAO();
         dao.remove(id);
     }
@@ -50,37 +49,56 @@ public class AbastecimentosFacade {
     }
     
     public static double totalAbastecidoMes(){
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd"); 
-        String data = fmt.format(new Date());
+        String data = getData();
         AbastecimentoDAO dao = new AbastecimentoDAO();
         return dao.getTotalAbastecido(data.substring(0, 8) + "01", data.substring(0, 8) + "31");
     }
     
-    public static double totalAbastecido(String inicio, String fim){
+    
+    
+    public static double totalAbastecidoPeriodo(String inicio, String fim){
         AbastecimentoDAO dao = new AbastecimentoDAO();
         return dao.getTotalAbastecido(inicio, fim);
     }
     
-    public static double totalAbastecido(String inicio, String fim, Veiculo v){
+    public static double totalAbastecidoVeiculo(Veiculo v){
         AbastecimentoDAO dao = new AbastecimentoDAO();
-        return dao.getTotalAbastecidoVeiculo(inicio, fim, v);
+        return dao.getTotalAbastecidoVeiculo("2000-01-01", getData(), v);
     }
     
-    public static int totalRodado(Veiculo v){
+    public static int totalRodadoVeiculo(Veiculo v){
         AbastecimentoDAO dao = new AbastecimentoDAO();
-        return dao.getTotalRodadoVeiculo("2015-01-01", getData(), v);
+        return dao.getTotalRodadoVeiculo("2000-01-01", getData(), v);
     }
     
-    public static int totalRodado(String inicio, String fim, Veiculo v){
+    public static int totalRodadoMes() {
+        String data = getData();
+        List<Veiculo> veiculos = VeiculoFacade.buscar();
+        int total = 0;
+        for(Veiculo v : veiculos){
+            total = total + totalRodadoPeriodoVeiculo(data.substring(0, 8) + "01", data.substring(0, 8) + "31", v);
+        }
+        return total;
+    }
+
+    public static int totalRodadoPeriodoVeiculo(String inicio, String fim, Veiculo v){
         AbastecimentoDAO dao = new AbastecimentoDAO();
         return dao.getTotalRodadoVeiculo(inicio, fim, v);
     }
+       
+    public static double mediaMes(Veiculo v){
+        String data = getData();
+        return totalRodadoPeriodoVeiculo(data.substring(0, 8) + "01", data.substring(0, 8) + "31", v)/ totalAbastecidoVeiculo(v);
+    }
+     
+    public static double media(Veiculo v){
+        return totalRodadoVeiculo(v)/ totalAbastecidoVeiculo(v);
+    }
     
-    public static int totalRodadoMes(Veiculo v) {
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd"); 
-        String data = fmt.format(new Date());
+    public static double valorAbastecidoMes() {
+        String data = getData();
         AbastecimentoDAO dao = new AbastecimentoDAO();
-        return dao.getTotalRodadoVeiculo(data.substring(0, 8) + "01", data.substring(0, 8) + "31", v);
+        return dao.valorTotalAbastecidoPeriodo(data.substring(0, 8) + "01", data.substring(0, 8) + "31");
     }
     
     public static String getData(){
@@ -88,12 +106,10 @@ public class AbastecimentosFacade {
         return fmt.format(new Date());
     }
 
-    public static double mediaMes(Veiculo v){
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-        AbastecimentoDAO dao = new AbastecimentoDAO();
-        String data = fmt.format(new Date());
-        return totalRodadoMes(v)/ totalAbastecido(data.substring(0, 8) + "01", data.substring(0, 8) + "31", v);
-    }
+
+
+    
+    
     
     
 }

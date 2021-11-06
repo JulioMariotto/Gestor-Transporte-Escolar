@@ -16,6 +16,7 @@ import java.util.List;
 public class VeiculoFacade {
     
     public static Veiculo inserir(Veiculo v){
+        
         VeiculoDAO dao = new VeiculoDAO();
         return dao.cadastraVeiculo(v);
     }

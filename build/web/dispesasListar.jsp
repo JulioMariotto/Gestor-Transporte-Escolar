@@ -265,11 +265,11 @@
             for(i in resposta){
                 element += '<tr>';
                 element += '<td>' + resposta[i].valor.toLocaleString("pt-br",{style: "currency", currency: "BRL"}) + '</td>';
-                element += '<td>' + resposta[i].data.substring(8, 10) + resposta[i].data.substring(5, 7) +  + resposta[i].data.substring(0, 4) +'</td>';
+                element += '<td>' + resposta[i].data.substring(8, 10) + '/' + resposta[i].data.substring(5, 7) + '/' + resposta[i].data.substring(0, 4) +'</td>';
                 element += '<td>' + resposta[i].descricao +'</td>';
                 element += '<td>\n\
-                                    <a class="icones-table verde" href="Saidas?action=visualizar&id_dispesa=' + resposta[i].id + ' title="Visualizar"><span class="far fa-eye"></span></a>\n\
-                                    <a class="icones-table vermelho" href="Saidas?action=delete&id_dispesa=' + resposta[i].id + ' title="Remover"  onclick="return confirm(\'Tem certeza que deseja excluir esta dispesa?\')"><span class="far fa-trash-alt"></span></a>\n\
+                                    <a class="icones-table verde" href="Saidas?action=visualizar&id_dispesa=' + resposta[i].id + '" title="Visualizar"><span class="far fa-eye"></span></a>\n\
+                                    <a class="icones-table vermelho" href="Saidas?action=delete&id_dispesa=' + resposta[i].id + '" title="Remover"  onclick="return confirm(\'Tem certeza que deseja excluir esta dispesa?\')"><span class="far fa-trash-alt"></span></a>\n\
                             </td>';
                 element += '</tr>';
                 total = total + resposta[i].valor;

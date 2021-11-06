@@ -81,6 +81,12 @@
                                 <input type="text" class="form-control num" maxlength="3" name="capacidade">
                           </div>
                         </div>
+                        <div class="form-group manutencao abastecimento">
+                          <label class="control-label col-sm-2" for="km">Kilometragem:</label>
+                          <div class="col-sm-10">
+                              <input type="text" class="form-control numero" name="kilometragem">
+                          </div>
+                        </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="motorista">Motorista:</label>
                             <div class="col-sm-10">
@@ -108,6 +114,7 @@
     </body>
 </html>
 <script type="text/javascript">
+    $(".numero").mask("00000000000");
     $(".placa").mask('SSS-YAYY', {'translation': {
     A: {pattern: /[A-Z0-9]/},
     S: {pattern: /[A-Z]/},
