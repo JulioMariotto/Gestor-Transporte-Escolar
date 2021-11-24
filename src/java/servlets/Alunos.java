@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import bd.ConnectionFactory;
 import beans.Aluno;
 import beans.Contato;
 import beans.LoginBean;
@@ -15,9 +16,12 @@ import facade.EscolaFacade;
 import facade.PagamentosFacade;
 import facade.VeiculoFacade;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,6 +30,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import net.sf.jasperreports.engine.JasperRunManager;
 
 /**
  *
@@ -203,14 +208,37 @@ public class Alunos extends HttpServlet {
                             novo = AlunosFacade.inserir(novo);
                             response.sendRedirect("Alunos?action=visualizar&id="+novo.getId());
                             break;
+                        case "form-itinerario":
+                            List<Veiculo> veiculos_itinerario = VeiculoFacade.buscar();
+                            request.setAttribute("veiculos", veiculos_itinerario);
+                            RequestDispatcher rd5 = getServletContext().getRequestDispatcher("/itinerario.jsp");
+                            rd5.forward(request, response);
+                            break;
+                        case "itinerario":
+                            int id_veiculo = Integer.parseInt((String)request.getParameter("veiculo"));
+                            String host = "http://localhost:46455/Gestor%20Escolar";
+                            String jasper = "/manha.jasper";
+                            URL jasperURL = new URL(host + jasper);
+                            System.out.println("id: " + id_veiculo);
+                            HashMap params = new HashMap();
+                            params.put("id_veiculo", id_veiculo);
+                            
+                            byte[] bytes = JasperRunManager.runReportToPdf(jasperURL.openStream(), params, ConnectionFactory.getConnection());
+
+                            if (bytes != null) {
+                                response.setContentType("application/pdf");
+                                OutputStream ops = response.getOutputStream();
+                                ops.write(bytes);
+                            }
+                            break;
                         default:
                             List<Aluno> listagem = AlunosFacade.buscarAlunosAtivos();
                             request.setAttribute("alunos", listagem);
                             request.setAttribute("totalReceber", AlunosFacade.totalAReceber());
                             request.setAttribute("totalRecebido", PagamentosFacade.totalRecebido());
                             request.setAttribute("totalRecebidoMes", PagamentosFacade.totalRecebidoMes());
-                            RequestDispatcher rd5 = getServletContext().getRequestDispatcher("/alunosListar.jsp");
-                            rd5.forward(request, response);
+                            RequestDispatcher rd6 = getServletContext().getRequestDispatcher("/alunosListar.jsp");
+                            rd6.forward(request, response);
                             break;
                     }
                 }

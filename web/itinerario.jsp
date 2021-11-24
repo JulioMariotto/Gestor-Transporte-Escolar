@@ -19,38 +19,34 @@
 <!DOCTYPE html>
 
 <c:set var="login" value="${sessionScope.usuario}" />
-<c:set var="marcador" value="6" />
+<c:set var="marcador" value="1" />
 
 <c:if test="${login == null}">
    <jsp:forward page="/index.jsp">
         <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema." />
-        <jsp:param name="red" value="Relatorios" />
+        <jsp:param name="red" value="Alunos" />
     </jsp:forward> 
 </c:if>
 
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <title>Relatórios</title>
+        <title>Itinerario</title>
         <style>
             
             .jumbotron {
                 float: left;
+                height: 240px;
             }
             .col-md-12 {
                 width: 100%;
                 padding-bottom: 30px;
             }
-            
-            text {
-                fill: black;
-            }
+        
             
         </style>
-            
     </head>
     <body>
         
@@ -59,26 +55,17 @@
         <div class="container" style="padding-top: 1%">
             <div class="jumbotron">
                 <div class="col-md-12">
-                    <form class="form-inline" action="Relatorios" method="post">
+                    <h2>Itinerário</h2>
+                    <form class="form-inline" action="Alunos?action=itinerario" method="post">
                       <div class="form-group">
-                        <label for="tipo">Tipo:</label>
-                        <select class="form-control" name="tipo" onchange="mudaCalendario(this.value)">
-                              <option value="alunos">Alunos</option>
-                              <option value="entradas">Entradas</option>
-                              <option value="saidas">Saídas</option>
-                          </select>
-                      </div>
-                      <div class="form-group" id="mes_ref">
-                        <input type="month" value="<fmt:formatDate value="${data}" pattern="yyyy-MM" />" class="form-control" name="mes_ref">
-                      </div>
-                      <div class="form-group" id="data_inicio">
-                        <label for="data_inicio">De:</label>
-                        <input type="date" class="form-control" value="<fmt:formatDate value="${data}" pattern="yyyy-MM-dd" />" name="data_inicio">
-                      </div>
-                        <div class="form-group" id="data_fim">
-                        <label for="data_fim">Até:</label>
-                        <input type="date" class="form-control" value="<fmt:formatDate value="${data}" pattern="yyyy-MM-dd" />" name="data_fim">
-                      </div>
+                            <label for="veiculo">Veículo:</label>
+                            <select class="form-control" name="veiculo" required>
+                                <c:forEach items="${veiculos}" var="x"> 
+                                    <option value="${x.id}">${x.modelo}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                      
                       <button type="submit" class="btn btn-default">Gerar</button>
                     </form>
                 </div>

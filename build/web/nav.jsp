@@ -50,6 +50,22 @@
                <li class="active"><a href="Motoristas">Motoristas</a></li>
                <li><a href="Relatorios">Relatórios</a></li>
            </c:if>
+           <c:if test="${marcador == 6}">
+               <li><a href="Alunos">Alunos</a></li>
+               <li><a href="Entradas">Entradas</a></li>
+               <li><a href="Saidas">Saídas</a></li>
+               <li><a href="Veiculos">Veiculos</a></li>
+               <li><a href="Motoristas">Motoristas</a></li>
+               <li class="active"><a href="Relatorios">Relatórios</a></li>
+           </c:if>
+           <c:if test="${marcador == 7}">
+               <li><a href="Alunos">Alunos</a></li>
+               <li><a href="Entradas">Entradas</a></li>
+               <li><a href="Saidas">Saídas</a></li>
+               <li><a href="Veiculos">Veiculos</a></li>
+               <li><a href="Motoristas">Motoristas</a></li>
+               <li><a href="Relatorios">Relatórios</a></li>
+           </c:if>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="Logout"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>

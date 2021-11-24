@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import bd.ConnectionFactory;
 import beans.Abastecimento;
 import beans.Aluno;
 import beans.LoginBean;
@@ -14,8 +15,11 @@ import facade.AlunosFacade;
 import facade.RelatoriosFacade;
 import facade.VeiculoFacade;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,6 +28,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import net.sf.jasperreports.engine.JasperRunManager;
 
 /**
  *
@@ -52,6 +57,7 @@ public class Relatorios extends HttpServlet {
             
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
             request.setAttribute("msg", "Usuário deve se autenticar para acessar o sistema");
+            request.setAttribute("red", "Relatorios");
             rd.forward(request, response);
         }
         else{
@@ -63,74 +69,83 @@ public class Relatorios extends HttpServlet {
 
                     switch(tipo){
                         case "alunos":
-                            String data_inicio_alunos = (String)request.getParameter("data_inicio");
-                            String data_fim_alunos = (String)request.getParameter("data_fim");
-                            if(data_inicio_alunos == null){
-                                if(data_fim_alunos == null){
-                                    data_fim_alunos = getData();
-                                }
-                                data_inicio_alunos = "2000-01-01";
+                            String mes_ref = (String)request.getParameter("mes_ref") + "-01";
+                            if(mes_ref.isEmpty()){
+                                mes_ref = getMesAno() + "-01";
                             }
-                            List<Aluno> lista1 = RelatoriosFacade.gerarRelatorioAlunos(data_inicio_alunos, data_fim_alunos);
+                            String host_alunos = "http://localhost:46455/Gestor%20Escolar";
+                            String jasper_alunos = "/Alunos.jasper";
+                            URL jasperURL_alunos = new URL(host_alunos + jasper_alunos);
+                      
+                            HashMap params_alunos = new HashMap();
+                            params_alunos.put("mes_ref", mes_ref);
                             
-                            // Falta gerar os relatorios na classe facede e criar a jsp para encaminhar.
-                            request.setAttribute("alunos", lista1);
-                            RequestDispatcher rd1 = getServletContext().getRequestDispatcher("/relatorioAlunos.jsp");
-                            rd1.forward(request, response);
+                            byte[] bytes_alunos = JasperRunManager.runReportToPdf(jasperURL_alunos.openStream(), params_alunos, ConnectionFactory.getConnection());
+
+                            if (bytes_alunos != null) {
+                                response.setContentType("application/pdf");
+                                OutputStream ops_alunos = response.getOutputStream();
+                                ops_alunos.write(bytes_alunos);
+                            }
                             break;
-                        case "pagamentos":
-                            String data_inicio_pagamentos = (String)request.getParameter("data_inicio");
-                            String data_fim_pagamentos = (String)request.getParameter("data_fim");
-                            if(data_inicio_pagamentos == null){
-                                if(data_fim_pagamentos == null){
-                                    data_fim_pagamentos = getData();
+                        case "entradas":
+                            String data_inicio_entradas = (String)request.getParameter("data_inicio");
+                            String data_fim_entradas = (String)request.getParameter("data_fim");
+                            if(data_inicio_entradas.isEmpty()){
+                                if(data_fim_entradas.isEmpty()){
+                                    data_fim_entradas = getData();
                                 }
-                                data_inicio_pagamentos = "2000-01-01";
+                                data_inicio_entradas = "2000-01-01";
                             }
-                            List<Pagamento> lista2 = RelatoriosFacade.gerarRelatorioPagamentos(data_inicio_pagamentos, data_fim_pagamentos);
+                            String host_entradas = "http://localhost:46455/Gestor%20Escolar";
+                            String jasper__entradas = "/Entradas.jasper";
+                            URL jasperURL = new URL(host_entradas + jasper__entradas);
+                      
+                            HashMap params_entradas = new HashMap();
+                            params_entradas.put("data_inicio", data_inicio_entradas);
+                            params_entradas.put("data_fim", data_fim_entradas);
                             
-                            // Falta gerar os relatorios na classe facede e criar a jsp para encaminhar.
-                            request.setAttribute("pagamentos", lista2);
-                            RequestDispatcher rd2 = getServletContext().getRequestDispatcher("/relatorioPagamentos.jsp");
-                            rd2.forward(request, response);
+                            byte[] bytes_entradas = JasperRunManager.runReportToPdf(jasperURL.openStream(), params_entradas, ConnectionFactory.getConnection());
+
+                            if (bytes_entradas != null) {
+                                response.setContentType("application/pdf");
+                                OutputStream ops_entradas = response.getOutputStream();
+                                ops_entradas.write(bytes_entradas);
+                            }
                             break;
-                        case "dispesas":
-                            String data_inicio_abastecimentos = (String)request.getParameter("data_inicio");
-                            String data_fim_abastecimentos = (String)request.getParameter("data_fim");
-                            if(data_inicio_abastecimentos == null){
-                                if(data_fim_abastecimentos == null){
-                                    data_fim_abastecimentos = getData();
+                        case "saidas":
+                            String data_inicio_saidas = (String)request.getParameter("data_inicio");
+                            String data_fim_saidas = (String)request.getParameter("data_fim");
+                            if(data_inicio_saidas.isEmpty()){
+                                if(data_fim_saidas.isEmpty()){
+                                    data_fim_saidas = getData();
                                 }
-                                data_inicio_abastecimentos = "2000-01-01";
+                                data_inicio_saidas = "2000-01-01";
                             }
-                            List<Abastecimento> lista3 = RelatoriosFacade.gerarRelatorioDispesas(data_inicio_abastecimentos, data_fim_abastecimentos);
+                            String host_saidas = "http://localhost:46455/Gestor%20Escolar";
+                            String jasper__saidas = "/Saidas.jasper";
+                            URL jasperURL_saidas = new URL(host_saidas + jasper__saidas);
+                      
+                            HashMap params_saidas = new HashMap();
+                            params_saidas.put("data_inicio", data_inicio_saidas);
+                            params_saidas.put("data_fim", data_fim_saidas);
                             
-                            // Falta gerar os relatorios na classe facede e criar a jsp para encaminhar.
-                            request.setAttribute("dispesas", lista3);
-                            RequestDispatcher rd3 = getServletContext().getRequestDispatcher("/relatorio.jsp");
-                            rd3.forward(request, response);
-                            break;    
-                        case "Veiculo":
-                            String data_inicio_rodagens = (String)request.getParameter("data_inicio");
-                            String data_fim_rodagens = (String)request.getParameter("data_fim");
-                            int id_veiculo = Integer.parseInt(request.getParameter("id_veiculo"));
-                            Veiculo v = VeiculoFacade.buscar(id_veiculo);
-                            if(data_inicio_rodagens == null){
-                                if(data_fim_rodagens == null){
-                                    data_fim_rodagens = getData();
-                                }
-                                data_inicio_rodagens = "2000-01-01";
+                            byte[] bytes_saidas = JasperRunManager.runReportToPdf(jasperURL_saidas.openStream(), params_saidas, ConnectionFactory.getConnection());
+
+                            if (bytes_saidas != null) {
+                                response.setContentType("application/pdf");
+                                OutputStream ops_saidas = response.getOutputStream();
+                                ops_saidas.write(bytes_saidas);
                             }
-                            List<Abastecimento> lista4 = RelatoriosFacade.gerarRelatorioVeiculo(data_inicio_rodagens, data_fim_rodagens, v);
-                            
-                            // Falta gerar os relatorios na classe facede e criar a jsp para encaminhar.
-                            request.setAttribute("veiculo", lista4);
-                            RequestDispatcher rd4 = getServletContext().getRequestDispatcher("/relatorioAbastecimentos.jsp");
-                            rd4.forward(request, response);
                             break;
                         default:
-                            List<Aluno> listagem = AlunosFacade.buscar();
-                            request.setAttribute("alunos", listagem);
+                            request.setAttribute("entradas", RelatoriosFacade.getEntradas());
+                            request.setAttribute("saidas", RelatoriosFacade.getSaidas());
+                            request.setAttribute("ano", RelatoriosFacade.getAno());
+                            request.setAttribute("novos", RelatoriosFacade.getNovosAlunos());
+                            request.setAttribute("cancelados", RelatoriosFacade.getAlunosCancelados());
+                            request.setAttribute("km", RelatoriosFacade.getKilometragem());
+                            request.setAttribute("data", getData());
                             RequestDispatcher rd5 = getServletContext().getRequestDispatcher("/relatorio.jsp");
                             rd5.forward(request, response);
                             break;
@@ -138,8 +153,13 @@ public class Relatorios extends HttpServlet {
                 }
                 else {
 
-                    List<Aluno> lista = AlunosFacade.buscar();
-                    request.setAttribute("alunos", lista);
+                    request.setAttribute("entradas", RelatoriosFacade.getEntradas());
+                    request.setAttribute("saidas", RelatoriosFacade.getSaidas());
+                    request.setAttribute("ano", RelatoriosFacade.getAno());
+                    request.setAttribute("novos", RelatoriosFacade.getNovosAlunos());
+                    request.setAttribute("cancelados", RelatoriosFacade.getAlunosCancelados());
+                    request.setAttribute("km", RelatoriosFacade.getKilometragem());
+                    request.setAttribute("data", new Date());
                     RequestDispatcher rd1 = getServletContext().getRequestDispatcher("/relatorio.jsp");
                     rd1.forward(request, response);
                 }
@@ -192,8 +212,13 @@ public class Relatorios extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-        public static String getData(){
+    public static String getData(){
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd"); 
+        return fmt.format(new Date());
+    }
+    
+    public static String getMesAno(){
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM"); 
         return fmt.format(new Date());
     }
 }

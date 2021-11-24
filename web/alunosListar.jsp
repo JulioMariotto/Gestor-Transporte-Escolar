@@ -40,7 +40,6 @@
             }
             .tabela {
                 max-height: 340px;
-                padding-bottom: 100px;
                 float: left;
                 overflow: auto;
                 width: 100%;
@@ -73,6 +72,14 @@
                 width: 33.3%;
                 font-size: 20px;
             }
+            .pago {
+                padding: 0px 5px;
+                color: #1cdf1c;
+            }
+            .aberto {
+                padding: 0px 5px;
+                color: #ff0000;
+            }
             .verde, .verde:active, .verde:hover, .verde:focus {
                 color: #009688;
             }
@@ -99,14 +106,15 @@
                 </div>
                 <div class="botoes col-md-12">
                     <div class="col-md-4">
-                        <a href="Alunos?action=form-novo"><button type="button" class="btn btn-success">Novo Aluno</button></a>
+                        <a href="Alunos?action=form-novo" title="Registrar Aluno"><button type="button" class="btn btn-success">Novo Aluno</button></a>
+                        <a href="Alunos?action=form-itinerario" title="Ver Itinerário"><button type="button" class="btn btn-danger">Itinerário</button></a>
                     </div>
                     <div class="col-md-4">
                         <div class="filtro"><input type="text" placeholder="Digite aqui para buscar um Aluno" class="input-filtro" onkeyup="filtraAlunos(this.value)"></div>
                     </div>
                     <div class="col-md-4">
-                        <button type="button" class="btn btn-primary float-right" id="btn-ativos" onclick="listaAlunos('ativos')">Alunos Ativos</button>
-                        <button type="button" class="btn btn-default float-right" id="btn-todos" onclick="listaAlunos('todos')">Todos os Alunos</button>
+                        <button type="button" class="btn btn-primary float-right" title="Ver Alunos Ativos" id="btn-ativos" onclick="listaAlunos('ativos')">Alunos Ativos</button>
+                        <button type="button" class="btn btn-default float-right" title="Ver Todos os Alunos" id="btn-todos" onclick="listaAlunos('todos')">Todos os Alunos</button>
                     </div>
                 </div>
                 
@@ -132,7 +140,22 @@
                       <td>${a.escola.nome}</td>
                       <td>${a.periodo}</td>
                       <td>${a.veiculo.numero}</td>
-                      <td>${a.getMensalidadeFormated()}</td>
+                      <td 
+                          <c:if test="${a.status == 2}" >
+                              title="Mensalidade do mês paga"
+                          </c:if>
+                          <c:if test="${a.status == 3}" >
+                              title="Mensalidade do em aberto"
+                          </c:if>
+                              >${a.getMensalidadeFormated()}
+                          
+                          <c:if test="${a.status == 2}" >
+                              <i class="fas fa-check pago"></i>
+                          </c:if>
+                          <c:if test="${a.status == 3}" >
+                              <i class="fas fa-times aberto"></i>
+                          </c:if>
+                      </td>
                       <td><a class="icones-table verde" href="Alunos?action=visualizar&id=${a.id}" title="Visualizar"><span class="far fa-eye"></span></a></td>
                     </tr>
                     </c:forEach>
@@ -153,13 +176,13 @@
         
         if(value === "todos"){
             $("#btn-todos").removeClass("btn-default");
-            $("#btn-todos").addClass("btn-danger");
+            $("#btn-todos").addClass("btn-primary");
             $("#btn-ativos").removeClass("btn-primary");
             $("#btn-ativos").addClass("btn-default");
         }
         else{
             $("#btn-todos").addClass("btn-default");
-            $("#btn-todos").removeClass("btn-danger");
+            $("#btn-todos").removeClass("btn-primary");
             $("#btn-ativos").addClass("btn-primary");
             $("#btn-ativos").removeClass("btn-default");
             
@@ -191,7 +214,15 @@
                 element += '<td>' + resposta[i].escola.nome + '</td>';
                 element += '<td>' + resposta[i].periodo + '</td>';
                 element += '<td>' + resposta[i].vencimento + '</td>';
-                element += '<td>' + resposta[i].mensalidade.toLocaleString("pt-br",{style: "currency", currency: "BRL"}) + '</td>';
+                if(resposta[i].status === 2){
+                    element += '<td  title="Mensalidade do mês paga">' + resposta[i].mensalidade.toLocaleString("pt-br",{style: "currency", currency: "BRL"}) + '<i class="fas fa-check pago"></i></td>';
+                }
+                else if(resposta[i].status === 3){
+                    element += '<td  title="Mensalidade do mês em aberto">' + resposta[i].mensalidade.toLocaleString("pt-br",{style: "currency", currency: "BRL"}) + '<i class="fas fa-times aberto"></i></td>';
+                }
+                else{
+                    element += '<td>' + resposta[i].mensalidade.toLocaleString("pt-br",{style: "currency", currency: "BRL"}) + '</td>';
+                }
                 element += '<td><a class="icones-table verde" href="Alunos?action=visualizar&id=' + resposta[i].id + '" title="Visualizar"><span class="far fa-eye"></span></a></td>';
                 element += '</tr>';  
             }

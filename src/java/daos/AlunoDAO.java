@@ -23,20 +23,13 @@ public class AlunoDAO {
     
 //private final String selectAlunosMarcandoPagamentoMes = "SELECT id_aluno, nome_aluno, telefone_aluno, endereco_aluno, nome_responsavel, cpf_responsavel, id_escola_aluno, periodo_aluno, turma_aluno, horario_casa_ida, horario_escola_ida, horario_escola_volta, horario_casa_volta, valor_mensalidade_aluno, vencimento_aluno, data_inicio_aluno, data_fim_aluno, contrato_aluno, status_aluno, data_nasc_aluno, case when aluno.id_aluno not in (select pagamento.id_aluno from pagamento where pagamento.mes_referencia = ?) THEN 0 else 1 end as pago from aluno where aluno.status_aluno = 1 order by nome_aluno";
     
-    private final String selectAlunosMarcandoPagamentoMes = "SELECT * FROM aluno "
-            + "                                              CASE "
-            + "                                              WHEN aluno.id_aluno "
-            + "                                              NOT IN ("
-            + "                                              SELECT pagamento.id_aluno FROM pagamento "
-            + "                                              WHERE pagamento.mes_referencia = ?) "
-            + "                                              THEN 0 ELSE 1 END "
-            + "                                              AS pago FROM aluno "
-            + "                                              WHERE aluno.status_aluno = 1 "
-            + "                                              ORDER by nome_aluno";
+    private final String selectAlunosMarcandoPagamentoMes = "select *, case when aluno.id_aluno not in (select pagamento.id_aluno from pagamento where pagamento.mes_referencia = ?) THEN 3 else 2 end as pago from aluno where aluno.status_aluno = 1 order by nome_aluno;";
     
     private final String selectAluno = "SELECT * FROM aluno WHERE id_aluno = ?";
     private final String selectTotalMensalidades = "	SELECT SUM(valor_mensalidade_aluno) as soma FROM aluno WHERE status_aluno = 1";
     private final String selectTotalMensalidadesVeiculo = "SELECT SUM(valor_mensalidade_aluno) as soma FROM aluno WHERE status_aluno = 1 AND id_veiculo_aluno = ?";
+    private final String selectTotalAlunosNovosPeriodo = "SELECT COUNT(*) AS total FROM aluno WHERE data_inicio_aluno BETWEEN ? AND ?";
+    private final String selectTotalAlunosCanceladosPeriodo = "SELECT COUNT(*) AS total FROM aluno WHERE data_fim_aluno BETWEEN ? AND ?";
     private final String desativarAluno = "UPDATE aluno SET status_aluno = 0, data_fim_aluno = ? WHERE id_aluno = ?";
     private final String ativarAluno = "UPDATE aluno SET status_aluno = 1, data_fim_aluno = ? WHERE id_aluno = ?";
     private final String insertAluno = "INSERT INTO aluno (nome_aluno, telefone_aluno, endereco_aluno,  nome_responsavel,  cpf_responsavel,  id_escola_aluno,  periodo_aluno,  turma_aluno,  horario_casa_ida,  horario_escola_ida,  horario_escola_volta,  horario_casa_volta, valor_mensalidade_aluno,  vencimento_aluno,  data_inicio_aluno, data_nasc_aluno, id_veiculo_aluno) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -209,13 +202,12 @@ public class AlunoDAO {
         List<Aluno> lista = new ArrayList();
         try{
             
-            DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd"); 
+            DateFormat fmt = new SimpleDateFormat("yyyy-MM"); 
             String data = fmt.format(new Date());
-            int mes = Integer.valueOf(data.substring(5, 7));
             
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(selectAlunosMarcandoPagamentoMes);
-            stmt.setString(1, meses[mes-1] + "/" + data.substring(0, 4));
+            stmt.setString(1, data + "-01");
             
             rs = stmt.executeQuery();
             
@@ -246,7 +238,7 @@ public class AlunoDAO {
                         rs.getInt("vencimento_aluno"), 
                         rs.getString("data_inicio_aluno"), 
                         rs.getString("data_fim_aluno"), 
-                        rs.getInt("status_aluno")
+                        rs.getInt("pago")
                 );
                 
                 lista.add(aluno);
@@ -529,6 +521,54 @@ public class AlunoDAO {
             return total;
         } catch (SQLException ex) {
             throw new RuntimeException("Erro ao listar o aluno. "+ex.getMessage());
+        }finally{
+            if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
+            if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
+            if(con != null){try{con.close();}catch(SQLException ex){System.out.println("Erro ao fechar a Conexão. Ex="+ex.getMessage());}}
+        }
+    }
+
+      public int totalAlunosNovosPeriodo(String data_inicio, String data_fim) {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try{
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(selectTotalAlunosNovosPeriodo);
+            stmt.setString(1, data_inicio);
+            stmt.setString(2, data_fim);
+            rs = stmt.executeQuery();
+            int total = 0;
+            while(rs.next()){
+                total = rs.getInt("total");
+            }
+            return total;
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro ao contar alunos novos. "+ex.getMessage());
+        }finally{
+            if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
+            if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
+            if(con != null){try{con.close();}catch(SQLException ex){System.out.println("Erro ao fechar a Conexão. Ex="+ex.getMessage());}}
+        }
+    }
+
+    public int totalAlunosCanceladosPeriodo(String data_inicio, String data_fim) {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try{
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(selectTotalAlunosCanceladosPeriodo);
+            stmt.setString(1, data_inicio);
+            stmt.setString(2, data_fim);
+            rs = stmt.executeQuery();
+            int total = 0;
+            while(rs.next()){
+                total = rs.getInt("total");
+            }
+            return total;
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro ao contar alunos cancelados. "+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}

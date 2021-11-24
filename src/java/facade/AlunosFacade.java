@@ -42,7 +42,7 @@ public class AlunosFacade {
     
     public static List<Aluno> buscarAlunosAtivos(){
         AlunoDAO dao = new AlunoDAO();
-        return dao.listarAlunosAtivos();
+        return dao.listarAlunosMarcandoPagamentosMes();
     }
     public static void deletar(int id){
         AlunoDAO dao = new AlunoDAO();
