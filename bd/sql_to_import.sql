@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 --
 
 INSERT INTO `usuario` (`id_usuario`, `login_usuario`, `senha_usuario`, `nome_usuario`) VALUES
-(1, 'user', '123', 'Julio Mariotto');
+(1, 'adm@adm.com', 'adm!adm00', 'Administrador');
 
 -- --------------------------------------------------------
 
