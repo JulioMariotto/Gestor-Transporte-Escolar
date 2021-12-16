@@ -18,7 +18,7 @@ public class ManutencaoDAO {
     
     private final String selectManutencao = "SELECT * FROM manutencao WHERE id_despesa_manutencao = ?";
     private final String selectManutencoes = "SELECT * FROM manutencao INNER JOIN despesa ON id_despesa_manutencao = id_despesa ORDER BY data_despesa DESC";
-    private final String selectManutencoesVeiculo = "SELECT * FROM manutencao INNER JOIN despesa ON id_dispasa_manutencao = id_despesa AND id_veiculo_manutencao = ?  ORDER BY data_despesa DESC";
+    private final String selectManutencoesVeiculo = "SELECT * FROM manutencao INNER JOIN despesa ON id_despesa_manutencao = id_despesa AND id_veiculo_manutencao = ?  ORDER BY data_despesa DESC";
     private final String selectTotalManutencoes = "SELECT SUM(valor_despesa) FROM manutencao INNER JOIN despesa ON id_despesa_manutencao = id_despesa AND data_despesa BETWEEN ? AND ? ORDER BY data_despesa DESC";
     private final String selectManutencoesFiltoData = "SELECT * FROM manutencao INNER JOIN despesa ON id_despesa_manutencao = id_despesa AND data_despesa BETWEEN ? AND ? ORDER BY data_despesa DESC";
     private final String insertManutencao = "INSERT INTO manutencao (id_despesa_manutencao, id_veiculo_manutencao, problema_manutencao, km_manutencao) VALUES (?, ?, ?, ?)";

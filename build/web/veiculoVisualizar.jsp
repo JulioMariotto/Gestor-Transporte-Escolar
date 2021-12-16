@@ -118,9 +118,9 @@
                         <tbody>
                             <c:forEach items="${abastecimentos}" var="a">
                                 <tr>
-                                    <td><fmt:formatNumber value="${a.dispesa.valor}" type="currency" /></td>
+                                    <td><fmt:formatNumber value="${a.despesa.valor}" type="currency" /></td>
                                     <td>${a.litros}</td>
-                                    <td>${fn:substring(a.dispesa.data, 8, 10)}/${fn:substring(a.dispesa.data, 5, 7)}/${fn:substring(a.dispesa.data, 0, 4)}</td>
+                                    <td>${fn:substring(a.despesa.data, 8, 10)}/${fn:substring(a.despesa.data, 5, 7)}/${fn:substring(a.despesa.data, 0, 4)}</td>
                                     <td>${a.posto}</td>
                                     <td>${a.kilometragem}</td>
                                 </tr>
@@ -146,8 +146,8 @@
                         <tbody>
                             <c:forEach items="${manutencoes}" var="m">
                                 <tr>
-                                    <td><fmt:formatNumber value="${m.dispesa.valor}" type="currency" /></td>
-                                    <td>${fn:substring(m.dispesa.data, 8, 10)}/${fn:substring(m.dispesa.data, 5, 7)}/${fn:substring(m.dispesa.data, 0, 4)}</td>
+                                    <td><fmt:formatNumber value="${m.despesa.valor}" type="currency" /></td>
+                                    <td>${fn:substring(m.despesa.data, 8, 10)}/${fn:substring(m.despesa.data, 5, 7)}/${fn:substring(m.despesa.data, 0, 4)}</td>
                                     <td>${m.problema}</td>
                                     <td>${m.kilometragem}</td>
                                 </tr>

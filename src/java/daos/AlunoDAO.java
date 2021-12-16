@@ -21,7 +21,7 @@ public class AlunoDAO {
     private final String selectAlunosVeiculo = "SELECT * FROM aluno WHERE status_aluno = 1 AND id_veiculo_aluno = ? ORDER BY nome_aluno";
     private final String selectAlunosFiltro = "SELECT * FROM aluno WHERE nome_aluno LIKE ? ORDER BY nome_aluno";
     
-    private final String selectAlunosMarcandoPagamentoMes = "select *, case when aluno.id_aluno not in (select pagamento.id_aluno from pagamento where pagamento.mes_referencia = ?) THEN 3 else 2 end as pago from aluno where aluno.status_aluno = 1 order by nome_aluno;";
+    private final String selectAlunosMarcandoPagamentoMes = "select *, case when aluno.id_aluno not in (select pagamento.id_aluno from pagamento where pagamento.mes_referencia = ?) THEN 3 else 2 end as pago from aluno where aluno.status_aluno = 1 order by nome_aluno";
     
     private final String selectAluno = "SELECT * FROM aluno WHERE id_aluno = ?";
     private final String selectTotalMensalidades = "	SELECT SUM(valor_mensalidade_aluno) as soma FROM aluno WHERE status_aluno = 1";

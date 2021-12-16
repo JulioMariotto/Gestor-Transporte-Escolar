@@ -130,7 +130,21 @@ public class Alunos extends HttpServlet {
                             String horario_escola_ida_alt = (String)request.getParameter("horario_escola_ida");
                             String horario_escola_volta_alt = (String)request.getParameter("horario_escola_volta");
                             String horario_casa_volta_alt = (String)request.getParameter("horario_casa_volta");
-                            
+
+                            if(horario_casa_ida_alt.length() > 0 && horario_casa_ida_alt.length() < 8){
+                                horario_casa_ida_alt = horario_casa_ida_alt + ":00";
+                            }
+                            if(horario_escola_ida_alt.length() > 0 && horario_escola_ida_alt.length() < 8){
+                                horario_escola_ida_alt = horario_escola_ida_alt + ":00";
+                            }
+                            if(horario_escola_volta_alt.length() > 0 && horario_escola_volta_alt.length() < 8){
+                                horario_escola_volta_alt = horario_escola_volta_alt + ":00";
+                            }
+                            if(horario_casa_volta_alt.length() > 0 && horario_casa_volta_alt.length() < 8){
+                                horario_casa_volta_alt = horario_casa_volta_alt + ":00";
+                            }                            
+
+
                             String nome_responsavel_alt = (String)request.getParameter("nome_responsavel");
                             String cpf_responsavel_alt = (String)request.getParameter("cpf_responsavel");
                             
@@ -188,6 +202,19 @@ public class Alunos extends HttpServlet {
                             String horario_escola_volta_novo = (String)request.getParameter("horario_escola_volta");
                             String horario_casa_volta_novo = (String)request.getParameter("horario_casa_volta");
                             
+                            if(!horario_casa_ida_novo.isEmpty()){
+                                horario_casa_ida_novo = horario_casa_ida_novo + ":00";
+                            }
+                            if(!horario_escola_ida_novo.isEmpty()){
+                                horario_escola_ida_novo = horario_escola_ida_novo + ":00";
+                            }
+                            if(!horario_escola_volta_novo.isEmpty()){
+                                horario_escola_volta_novo = horario_escola_volta_novo + ":00";
+                            }
+                            if(!horario_casa_volta_novo.isEmpty()){
+                                horario_casa_volta_novo = horario_casa_volta_novo + ":00";
+                            }
+
                             String nome_responsavel_novo = (String)request.getParameter("nome_responsavel");
                             String cpf_responsavel_novo = (String)request.getParameter("cpf_responsavel");
                             

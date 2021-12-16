@@ -1,12 +1,10 @@
 Julio Cesar Mariotto Junior
 
-# Sistem Gestor para o Transporte Escolar
-
-## Versão 3.0
+# Sistema de Gestão para Transportadores Escolares
 
 # Descrição do Programa
 
-O programa consiste em armazenar e organizar as informações sobre Alunos, Veículos e Motoristas para facilitar o gerenciamento da empresa. 
+O programa consiste em armazenar e organizar as informações sobre Alunos, Veículos e Motoristas afim de facilitar o gerenciamento do negócio. 
 
 # Funcionamento
 
