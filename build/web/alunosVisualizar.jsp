@@ -1,8 +1,3 @@
-<%-- 
-    Document   : clientesVisualizar
-    Created on : 12/09/2018, 09:08:29
-    Author     : julio
---%>
 <%@page import="java.text.NumberFormat"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -50,7 +45,15 @@
                 <a href="Alunos" class="btn btn-default">Voltar</a>
                 <a href="Alunos?action=delete&id=${aluno.id}" class="btn float-right btn-danger active" onclick="return confirm('Tem certeza que deseja excluir ${aluno.nome}?')">Excluir</a>
                 <a href="Alunos?action=form-alterar&id=${aluno.id}" class="btn float-right btn-success active">Alterar</a>
-                <h1>${aluno.nome}</h1>
+                <c:if test="${aluno.status != 1}" >
+                    <a href="Alunos?action=ativar&id=${aluno.id}" class="btn float-right btn-warning active">Ativar</a>
+                </c:if>
+                <h1>
+                    <c:if test="${aluno.status != 1}" >
+                        [DESATIVADO]<br>
+                    </c:if>
+                    ${aluno.nome}
+                </h1>
                 <br>
                 <p><strong>Endereço: </strong>${aluno.endereco}</p>
                 <p><strong>Telefone: </strong>${aluno.telefone}</p>
@@ -91,16 +94,16 @@
                     <p><strong>Turma: </strong>${aluno.turma}</p>
                 </c:if>
                 <c:if test="${aluno.horarioCasaIda != ''}" >
-                    <p><strong>Horário Casa (Ida): </strong>${aluno.horarioCasaIda}</p>
+                    <p><strong>Saída (Casa): </strong>${aluno.horarioCasaIda}</p>
                 </c:if>
                 <c:if test="${aluno.horarioEscolaIda != ''}" >
-                    <p><strong>Horário Escola (Ida): </strong>${aluno.horarioEscolaIda}</p>                
+                    <p><strong>Chegada (Escola): </strong>${aluno.horarioEscolaIda}</p>                
                 </c:if>
                 <c:if test="${aluno.horarioEscolaVolta != ''}" >
-                    <p><strong>Horário Escola (Volta): </strong>${aluno.horarioEscolaVolta}</p>                
+                    <p><strong>Saída (Escola): </strong>${aluno.horarioEscolaVolta}</p>                
                 </c:if>    
                 <c:if test="${aluno.horarioCasaVolta != ''}" >
-                    <p><strong>Horário Casa (Volta): </strong>${aluno.horarioCasaVolta}</p>
+                    <p><strong>Chegada (Casa): </strong>${aluno.horarioCasaVolta}</p>
                 </c:if>
                 
                 

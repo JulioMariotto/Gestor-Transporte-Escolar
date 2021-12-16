@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package facade;
 
-import beans.Dispesa;
+import beans.Despesa;
 import beans.Manutencao;
 import beans.Veiculo;
 import daos.ManutencaoDAO;
@@ -13,10 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-/**
- *
- * @author julio
- */
 public class ManutencaoFacade {
     
      public static Manutencao buscar(int id_dispesa){

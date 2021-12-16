@@ -1,10 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 package daos;
 
 import bd.ConnectionFactory;
@@ -16,10 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author julio
- */
+
 public class VeiculoDAO {
     
     
@@ -47,7 +37,7 @@ public class VeiculoDAO {
             }
             return lista;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao listar os veiculos. "+ex.getMessage());
+            throw new RuntimeException("Erro ao listar todos os Veículos. "+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -72,7 +62,7 @@ public class VeiculoDAO {
             }
             return v;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao listar o veiculo. "+ex.getMessage());
+            throw new RuntimeException("Erro ao listar um Veículo. "+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -102,7 +92,7 @@ public class VeiculoDAO {
             int id = rs.getInt(1);
             return listarVeiculo(id);
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao inserir um veiculo no banco de dados. "+ex.getMessage());
+            throw new RuntimeException("Erro ao registrar um Veículo. "+ex.getMessage());
         } finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -130,7 +120,7 @@ public class VeiculoDAO {
             
             return listarVeiculo(v.getId());
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao alterar um veiculo no banco de dados. "+ex.getMessage());
+            throw new RuntimeException("Erro ao alterar um Veículo. "+ex.getMessage());
         } finally{
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
             if(con != null){try{con.close();}catch(SQLException ex){System.out.println("Erro ao fechar a Conexão. Ex="+ex.getMessage());}}
@@ -147,7 +137,7 @@ public class VeiculoDAO {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao excluir um veiculo no banco de dados. "+ex.getMessage());
+            throw new RuntimeException("Erro ao excluir um Veículo. "+ex.getMessage());
         } finally{
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
             if(con != null){try{con.close();}catch(SQLException ex){System.out.println("Erro ao fechar a Conexão. Ex="+ex.getMessage());}}
@@ -172,7 +162,7 @@ public class VeiculoDAO {
             }
             return v;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao listar os veiculos. "+ex.getMessage());
+            throw new RuntimeException("Erro ao listar o Veículo de um Motorista. "+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}

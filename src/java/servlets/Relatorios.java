@@ -1,26 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package servlets;
 
 import bd.ConnectionFactory;
-import beans.Abastecimento;
-import beans.Aluno;
 import beans.LoginBean;
-import beans.Pagamento;
-import beans.Veiculo;
-import facade.AlunosFacade;
 import facade.RelatoriosFacade;
-import facade.VeiculoFacade;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,10 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JasperRunManager;
 
-/**
- *
- * @author julio
- */
+
 @WebServlet(name = "Relatorios", urlPatterns = {"/Relatorios"})
 public class Relatorios extends HttpServlet {
 
@@ -46,6 +32,7 @@ public class Relatorios extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             
@@ -73,7 +60,7 @@ public class Relatorios extends HttpServlet {
                             if(mes_ref.isEmpty()){
                                 mes_ref = getMesAno() + "-01";
                             }
-                            String host_alunos = "http://localhost:46455/Gestor%20Escolar";
+                            String host_alunos = "http://localhost:46455/Gestor%20Escolar/Jasper";
                             String jasper_alunos = "/Alunos.jasper";
                             URL jasperURL_alunos = new URL(host_alunos + jasper_alunos);
                       
@@ -97,7 +84,7 @@ public class Relatorios extends HttpServlet {
                                 }
                                 data_inicio_entradas = "2000-01-01";
                             }
-                            String host_entradas = "http://localhost:46455/Gestor%20Escolar";
+                            String host_entradas = "http://localhost:46455/Gestor%20Escolar/Jasper";
                             String jasper__entradas = "/Entradas.jasper";
                             URL jasperURL = new URL(host_entradas + jasper__entradas);
                       
@@ -122,7 +109,7 @@ public class Relatorios extends HttpServlet {
                                 }
                                 data_inicio_saidas = "2000-01-01";
                             }
-                            String host_saidas = "http://localhost:46455/Gestor%20Escolar";
+                            String host_saidas = "http://localhost:46455/Gestor%20Escolar/Jasper";
                             String jasper__saidas = "/Saidas.jasper";
                             URL jasperURL_saidas = new URL(host_saidas + jasper__saidas);
                       

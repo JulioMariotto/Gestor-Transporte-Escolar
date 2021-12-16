@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package facade;
 
 import beans.Abastecimento;
@@ -12,10 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-/**
- *
- * @author julio
- */
+
 public class AbastecimentosFacade {
     
     public static List<Abastecimento> listarAbastecimentosVeiculo(Veiculo v){
@@ -53,8 +46,6 @@ public class AbastecimentosFacade {
         AbastecimentoDAO dao = new AbastecimentoDAO();
         return dao.getTotalAbastecido(data.substring(0, 8) + "01", data.substring(0, 8) + "31");
     }
-    
-    
     
     public static double totalAbastecidoPeriodo(String inicio, String fim){
         AbastecimentoDAO dao = new AbastecimentoDAO();

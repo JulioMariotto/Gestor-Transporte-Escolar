@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package daos;
 
-/**
- *
- * @author julio
- */
+
 
 import bd.ConnectionFactory;
 import beans.Contato;
@@ -24,7 +16,7 @@ public class ContatoDAO {
     
     private final String selectContatos = "SELECT * FROM contato WHERE id_aluno_contato = ? ORDER BY nome_contato DESC";
     private final String insertContato = "INSERT INTO contato (id_aluno_contato, nome_contato, telefone_contato, parentesco) VALUES (?, ?, ?, ?)";
-    private final String deleteContato = "DELETE FROM contato WHERE id_contato = ?";
+    private final String deleteContato = "DELETE FROM contato WHERE id_aluno_contato = ?";
     
     public List<Contato> listarContatos(int id_aluno) {
         Connection con = null;
@@ -44,7 +36,7 @@ public class ContatoDAO {
             return list;
         }
         catch (SQLException ex) {
-            throw new RuntimeException("Erro ao listar os contatos. "+ex.getMessage());
+            throw new RuntimeException("Erro ao listar os Contatos de um Aluno. "+ex.getMessage());
         }
         finally {
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
@@ -76,7 +68,7 @@ public class ContatoDAO {
             
         }
         catch (SQLException ex) {
-            throw new RuntimeException("Erro ao registar um contato. "+ex.getMessage());
+            throw new RuntimeException("Erro ao registar um Contato. "+ex.getMessage());
         }
         finally {
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
@@ -98,7 +90,7 @@ public class ContatoDAO {
             stmt.executeUpdate();
         }
         catch (SQLException ex) {
-            throw new RuntimeException("Erro ao excluir o contato. "+ex.getMessage());
+            throw new RuntimeException("Erro ao excluir os Contatos de um Aluno. "+ex.getMessage());
         }
         finally {
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}

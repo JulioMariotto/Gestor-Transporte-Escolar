@@ -1,8 +1,3 @@
-<%-- 
-    Document   : clientesVisualizar
-    Created on : 12/09/2018, 09:08:29
-    Author     : julio
---%>
 <%@page import="java.text.NumberFormat"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>

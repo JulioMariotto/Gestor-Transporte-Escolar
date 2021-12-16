@@ -1,8 +1,3 @@
-<%-- 
-    Document   : clientesListar
-    Created on : 11/09/2018, 16:49:37
-    Author     : julio
---%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -79,7 +74,7 @@
                         <label for="data_fim">Até:</label>
                         <input type="date" class="form-control" value="<fmt:formatDate value="${data}" pattern="yyyy-MM-dd" />" name="data_fim">
                       </div>
-                      <button type="submit" class="btn btn-default">Gerar</button>
+                      <button type="submit" class="btn btn-default">Gerar Relatório</button>
                     </form>
                 </div>
                 <div class="col-md-12">

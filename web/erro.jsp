@@ -1,8 +1,3 @@
-<%-- 
-    Document   : clientesVisualizar
-    Created on : 12/09/2018, 09:08:29
-    Author     : julio
---%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="beans.Aluno"%>
 <%@page import="java.util.List"%>

@@ -1,8 +1,3 @@
-<%-- 
-    Document   : pagamentosListar
-    Created on : 17/09/2018, 15:59:57
-    Author     : julio
---%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>

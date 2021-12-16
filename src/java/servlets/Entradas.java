@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package servlets;
 
 import beans.Aluno;
 import beans.LoginBean;
 import beans.Pagamento;
 import facade.AlunosFacade;
-import facade.DispesaFacade;
 import facade.PagamentosFacade;
 import java.io.IOException;
 import java.util.Arrays;
@@ -21,13 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import static servlets.Saidas.converteStringData;
-import static servlets.Saidas.getMes;
 
-/**
- *
- * @author julio
- */
+
 @WebServlet(name = "Entradas", urlPatterns = {"/Entradas"})
 public class Entradas extends HttpServlet {
 
@@ -40,6 +30,7 @@ public class Entradas extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             
@@ -106,7 +97,7 @@ public class Entradas extends HttpServlet {
                         }
                     }
                     else {
-                        request.setAttribute("pagamentos", PagamentosFacade.listarTodos());
+                        request.setAttribute("pagamentos", PagamentosFacade.listar());
                         request.setAttribute("total", PagamentosFacade.totalJaRecebido());
                         RequestDispatcher rd1 = getServletContext().getRequestDispatcher("/pagamentosListar.jsp");
                         rd1.forward(request, response);

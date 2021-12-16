@@ -1,8 +1,3 @@
-<%-- 
-    Document   : clientesAlterar
-    Created on : 12/09/2018, 15:09:25
-    Author     : julio
---%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -73,6 +68,7 @@
             function removerContato(id){
 
                 $("#tr" + id).remove();
+                
 
                 organizaLista();
             }
@@ -227,25 +223,25 @@
                             </div>
                         </div>
                         <div class="form-group">
-                          <label class="control-label col-sm-2" for="horario_casa_ida">Horário Casa (Ida):</label>
+                          <label class="control-label col-sm-2" for="horario_casa_ida">Saída (Casa):</label>
                           <div class="col-sm-10">
                               <input type="time" class="form-control" name="horario_casa_ida" value="${aluno.horarioCasaIda}">
                           </div>
                         </div>
                         <div class="form-group">
-                          <label class="control-label col-sm-2" for="horario_escola_ida">Horário Escola (Ida):</label>
+                          <label class="control-label col-sm-2" for="horario_escola_ida">Chegada (Escola):</label>
                           <div class="col-sm-10">
                               <input type="time" class="form-control" name="horario_escola_ida" value="${aluno.horarioEscolaIda}">
                           </div>
                         </div>
                         <div class="form-group">
-                          <label class="control-label col-sm-2" for="horario_escola_volta">Horário Escola (Volta):</label>
+                          <label class="control-label col-sm-2" for="horario_escola_volta">Sáida (Escola):</label>
                           <div class="col-sm-10">
                               <input type="time" class="form-control" name="horario_escola_volta" value="${aluno.horarioEscolaVolta}">
                           </div>
                         </div>
                         <div class="form-group">
-                          <label class="control-label col-sm-2" for="horario_casa_ida">Horário Casa (Volta):</label>
+                          <label class="control-label col-sm-2" for="horario_casa_ida">Chegada (Casa):</label>
                           <div class="col-sm-10">
                               <input type="time" class="form-control" name="horario_casa_volta" value="${aluno.horarioCasaVolta}">
                           </div>
@@ -274,7 +270,7 @@
                           </div>
                         </div>
                         <div class="form-group">
-                          <label class="control-label col-sm-2" for="vencimento">Vencimento Mensalidade:</label>
+                          <label class="control-label col-sm-2" for="vencimento">Vencimento:</label>
                           <div class="col-sm-10">
                               <input type="text" class="form-control numero" maxlength=2 name="vencimento" value="${aluno.vencimento}" required>
                           </div>
@@ -284,7 +280,7 @@
                     <br><br>
                     <div class="form-group"> 
                       <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-default">Alterar</button>
+                        <button type="submit" class="btn btn-default">Salvar</button>
                         <a href="Alunos" class="btn btn-default">Cancelar</a>
                       </div>
                     </div>

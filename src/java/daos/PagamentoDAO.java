@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package daos;
 
 import bd.ConnectionFactory;
@@ -17,10 +12,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- *
- * @author julio
- */
 public class PagamentoDAO {
     
     private final String selectPagamentos = "SELECT * FROM pagamento ORDER BY data_pagamento DESC";
@@ -60,7 +51,7 @@ public class PagamentoDAO {
             }
             return lista;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao listar os Pagamentos. "+ex.getMessage());
+            throw new RuntimeException("Erro ao listar todos os Pagamentos. "+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -68,7 +59,7 @@ public class PagamentoDAO {
         }
     }
     
-    public List<Pagamento> listaPagamentos(String data_inicio, String data_fim) {
+    public List<Pagamento> listaPagamentos(String inicio, String fim) {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -76,8 +67,8 @@ public class PagamentoDAO {
         try{
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(selectPagamentosData);
-            stmt.setString(1, data_inicio);
-            stmt.setString(2, data_fim);
+            stmt.setString(1, inicio);
+            stmt.setString(2, fim);
             rs = stmt.executeQuery();
             AlunoDAO dao = new AlunoDAO();
             String data;
@@ -93,7 +84,7 @@ public class PagamentoDAO {
             }
             return lista;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao listar os Pagamentos. "+ex.getMessage());
+            throw new RuntimeException("Erro ao listar os Pagamentos entre " + inicio + " e " + fim + " ."+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -132,7 +123,7 @@ public class PagamentoDAO {
         }
     }
 
-    public List<Pagamento> listaPagamentos(int id) {
+    public List<Pagamento> listaPagamentosAlunos(int id) {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -156,7 +147,7 @@ public class PagamentoDAO {
             }
             return lista;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao listar os Pagamentos. "+ex.getMessage());
+            throw new RuntimeException("Erro ao listar os Pagamentos de um Aluno. "+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -190,7 +181,7 @@ public class PagamentoDAO {
             }
             return lista;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao listar os Pagamentos do mes. "+ex.getMessage());
+            throw new RuntimeException("Erro ao listar os Pagamentos do mês. "+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -224,7 +215,7 @@ public class PagamentoDAO {
             }
             return lista;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao calcular o total recebido. "+ex.getMessage());
+            throw new RuntimeException("Erro ao listar os pagamentos deste ano. "+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -286,7 +277,7 @@ public class PagamentoDAO {
             rs.next();
             return (double)rs.getDouble(1);
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao calcular o total recebido. "+ex.getMessage());
+            throw new RuntimeException("Erro ao calcular o total recebido entre " + inicio + " e " + fim + " ."+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -323,12 +314,11 @@ public class PagamentoDAO {
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(selectRecebidoMes);
             stmt.setString(1, data + "-01");
-            //stmt.setString(1, "Abril/2019");
             rs = stmt.executeQuery();
             rs.next();
             return (double)rs.getDouble(1);
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao calcular o total recebido. "+ex.getMessage());
+            throw new RuntimeException("Erro ao calcular o total recebido neste mês. "+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -350,7 +340,7 @@ public class PagamentoDAO {
             rs.next();
             return (double)rs.getDouble(1);
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao calcular o total recebido. "+ex.getMessage());
+            throw new RuntimeException("Erro ao calcular o total recebido no ano. "+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}

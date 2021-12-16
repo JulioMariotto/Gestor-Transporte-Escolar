@@ -1,21 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package facade;
 
 import beans.Pagamento;
-import beans.Veiculo;
 import daos.PagamentoDAO;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-/**
- *
- * @author julio
- */
 public class PagamentosFacade {
     
     public static Pagamento registrar(Pagamento p){
@@ -29,7 +19,6 @@ public class PagamentosFacade {
     public static List<Pagamento> listar(){
         PagamentoDAO dao = new PagamentoDAO();
         return dao.lista50Pagamentos();
-        //return dao.listaPagamentos();
     }
     
     public static List<Pagamento> listarMesRef(){
@@ -54,7 +43,7 @@ public class PagamentosFacade {
     
     public static List<Pagamento> listar(int id){
         PagamentoDAO dao = new PagamentoDAO();
-        return dao.listaPagamentos(id);
+        return dao.listaPagamentosAlunos(id);
     }
     
     public static String getData(){

@@ -1,24 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package beans;
 
-/**
- *
- * @author julio
- */
+
 public class Manutencao {
     
     private Veiculo veiculo;
-    private Dispesa dispesa;
+    private Despesa despesa;
     private String problema;
     private String kilometragem;
 
-    public Manutencao(Veiculo veiculo, Dispesa dispesa, String problema, String kilometragem) {
+    public Manutencao(Veiculo veiculo, Despesa despesa, String problema, String kilometragem) {
         this.veiculo = veiculo;
-        this.dispesa = dispesa;
+        this.despesa = despesa;
         this.problema = problema;
         this.kilometragem = kilometragem;
     }
@@ -31,12 +23,12 @@ public class Manutencao {
         this.veiculo = veiculo;
     }
 
-    public Dispesa getDispesa() {
-        return dispesa;
+    public Despesa getDespesa() {
+        return despesa;
     }
 
-    public void setDispesa(Dispesa dispesa) {
-        this.dispesa = dispesa;
+    public void setDespesa(Despesa despesa) {
+        this.despesa = despesa;
     }
 
     public String getProblema() {

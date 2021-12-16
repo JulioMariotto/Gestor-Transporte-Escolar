@@ -1,8 +1,3 @@
-<%-- 
-    Document   : clientesVisualizar
-    Created on : 12/09/2018, 09:08:29
-    Author     : julio
---%>
 <%@page import="java.text.NumberFormat"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -106,7 +101,7 @@
                 <h2><strong>Abastecimentos</strong></h2>
                 
                 <p>Quantidade: ${abastecimentos.size()}</p>
-                <p>Kilometros já rodados: ${rodado}</p>
+                <p>Quilômetros já rodados: ${rodado}</p>
                 <p>Média de consumo: <fmt:formatNumber type = "number" maxFractionDigits = "2" value = "${media}" />km/l</p>
                 <br>
                 <div class="tabela">
@@ -117,7 +112,7 @@
                               <th>Litros</th>
                               <th>Data</th>
                               <th>Posto</th>
-                              <th>Kilometragem</th>
+                              <th>Quilometragem</th>
                             </tr>
                         </thead>
                         <tbody>

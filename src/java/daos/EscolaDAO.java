@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package daos;
 
-/**
- *
- * @author julio
- */
 
 import bd.ConnectionFactory;
 import beans.Escola;
@@ -46,7 +37,7 @@ public class EscolaDAO {
             return c;
         }
         catch (SQLException ex) {
-            throw new RuntimeException("Erro ao listar as escolas. "+ex.getMessage());
+            throw new RuntimeException("Erro ao listar uma Escola. "+ex.getMessage());
         }
         finally {
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
@@ -73,7 +64,7 @@ public class EscolaDAO {
             return list;
         }
         catch (SQLException ex) {
-            throw new RuntimeException("Erro ao listar as escolas. "+ex.getMessage());
+            throw new RuntimeException("Erro ao listar as Escolas. "+ex.getMessage());
         }
         finally {
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
@@ -104,7 +95,7 @@ public class EscolaDAO {
             
         }
         catch (SQLException ex) {
-            throw new RuntimeException("Erro ao registar uma escola. "+ex.getMessage());
+            throw new RuntimeException("Erro ao registar uma Escola. "+ex.getMessage());
         }
         finally {
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
@@ -126,7 +117,7 @@ public class EscolaDAO {
             stmt.executeUpdate();
         }
         catch (SQLException ex) {
-            throw new RuntimeException("Erro ao excluir a escola. "+ex.getMessage());
+            throw new RuntimeException("Erro ao excluir a Escola. "+ex.getMessage());
         }
         finally {
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}

@@ -1,20 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package beans;
 
-import java.text.NumberFormat;
 
-/**
- *
- * @author julio
- */
 public class Abastecimento {
     
     private Veiculo veiculo;
-    private Dispesa dispesa;
+    private Despesa despesa;
     private int kilometragem;
     private double litros;
     private String posto;
@@ -23,13 +14,13 @@ public class Abastecimento {
     public Abastecimento() {
     }
 
-    public Abastecimento(Veiculo veiculo, Dispesa dispesa, int kilometragem, double litros, String posto) {
+    public Abastecimento(Veiculo veiculo, Despesa despesa, int kilometragem, double litros, String posto) {
         this.veiculo = veiculo;
-        this.dispesa = dispesa;
+        this.despesa = despesa;
         this.kilometragem = kilometragem;
         this.litros = litros;
         this.posto = posto;
-        this.valorLitro = dispesa.getValor() / litros;
+        this.valorLitro = despesa.getValor() / litros;
     }
 
     public Veiculo getVeiculo() {
@@ -40,12 +31,12 @@ public class Abastecimento {
         this.veiculo = veiculo;
     }
 
-    public Dispesa getDispesa() {
-        return dispesa;
+    public Despesa getDespesa() {
+        return despesa;
     }
 
-    public void setDispesa(Dispesa dispesa) {
-        this.dispesa = dispesa;
+    public void setDespesa(Despesa despesa) {
+        this.despesa = despesa;
     }
 
     public int getKilometragem() {

@@ -21,8 +21,6 @@ public class AlunoDAO {
     private final String selectAlunosVeiculo = "SELECT * FROM aluno WHERE status_aluno = 1 AND id_veiculo_aluno = ? ORDER BY nome_aluno";
     private final String selectAlunosFiltro = "SELECT * FROM aluno WHERE nome_aluno LIKE ? ORDER BY nome_aluno";
     
-//private final String selectAlunosMarcandoPagamentoMes = "SELECT id_aluno, nome_aluno, telefone_aluno, endereco_aluno, nome_responsavel, cpf_responsavel, id_escola_aluno, periodo_aluno, turma_aluno, horario_casa_ida, horario_escola_ida, horario_escola_volta, horario_casa_volta, valor_mensalidade_aluno, vencimento_aluno, data_inicio_aluno, data_fim_aluno, contrato_aluno, status_aluno, data_nasc_aluno, case when aluno.id_aluno not in (select pagamento.id_aluno from pagamento where pagamento.mes_referencia = ?) THEN 0 else 1 end as pago from aluno where aluno.status_aluno = 1 order by nome_aluno";
-    
     private final String selectAlunosMarcandoPagamentoMes = "select *, case when aluno.id_aluno not in (select pagamento.id_aluno from pagamento where pagamento.mes_referencia = ?) THEN 3 else 2 end as pago from aluno where aluno.status_aluno = 1 order by nome_aluno;";
     
     private final String selectAluno = "SELECT * FROM aluno WHERE id_aluno = ?";
@@ -31,12 +29,9 @@ public class AlunoDAO {
     private final String selectTotalAlunosNovosPeriodo = "SELECT COUNT(*) AS total FROM aluno WHERE data_inicio_aluno BETWEEN ? AND ?";
     private final String selectTotalAlunosCanceladosPeriodo = "SELECT COUNT(*) AS total FROM aluno WHERE data_fim_aluno BETWEEN ? AND ?";
     private final String desativarAluno = "UPDATE aluno SET status_aluno = 0, data_fim_aluno = ? WHERE id_aluno = ?";
-    private final String ativarAluno = "UPDATE aluno SET status_aluno = 1, data_fim_aluno = ? WHERE id_aluno = ?";
+    private final String ativarAluno = "UPDATE aluno SET status_aluno = 1, data_fim_aluno = '2000-01-01' WHERE id_aluno = ?";
     private final String insertAluno = "INSERT INTO aluno (nome_aluno, telefone_aluno, endereco_aluno,  nome_responsavel,  cpf_responsavel,  id_escola_aluno,  periodo_aluno,  turma_aluno,  horario_casa_ida,  horario_escola_ida,  horario_escola_volta,  horario_casa_volta, valor_mensalidade_aluno,  vencimento_aluno,  data_inicio_aluno, data_nasc_aluno, id_veiculo_aluno) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    //private final String updateAluno = "UPDATE aluno SET nome_aluno=?, telefone_aluno=?, endereco_aluno=?, nome_mae_aluno=?, telefone_mae_aluno=?, nome_pai_aluno=?, telefone_pai_aluno=?, escola_aluno=?, periodo_aluno=?, turma_aluno=?, horario_entrada_aluno=?, horario_saida_aluno=?, valor_mensalidade_aluno=?, vencimento_aluno=?, contrato_aluno=? WHERE id_aluno=?";
     private final String updateAluno = "UPDATE aluno SET nome_aluno = ?, telefone_aluno = ?, endereco_aluno = ?, nome_responsavel = ?, cpf_responsavel = ?, id_escola_aluno = ?, periodo_aluno = ?, turma_aluno = ?, horario_casa_ida = ?, horario_escola_ida = ?, horario_escola_volta = ? , horario_casa_volta = ?, valor_mensalidade_aluno = ?, vencimento_aluno = ?, data_nasc_aluno = ?, id_veiculo_aluno = ? WHERE id_aluno=?";
-    private final String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
-    
     
     public List<Aluno> listarTodos(){
         
@@ -83,7 +78,7 @@ public class AlunoDAO {
             }
             return lista;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao listar alunos. "+ex.getMessage());
+            throw new RuntimeException("Erro ao listar todos os Alunos. "+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -134,7 +129,7 @@ public class AlunoDAO {
             }
             return lista;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao listar alunos de um veículo. "+ex.getMessage());
+            throw new RuntimeException("Erro ao listar todos os Alunos de um Veículo. "+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -186,7 +181,7 @@ public class AlunoDAO {
             }
             return lista;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao listar alunos. "+ex.getMessage());
+            throw new RuntimeException("Erro ao listar os Alunos ativos. "+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -245,7 +240,7 @@ public class AlunoDAO {
             }
             return lista;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao listar alunos. "+ex.getMessage());
+            throw new RuntimeException("Erro ao listar os Alunos junto com a confirmação dos pagamentos em dia. "+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -299,7 +294,7 @@ public class AlunoDAO {
             }
             return lista;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao listar alunos. "+ex.getMessage());
+            throw new RuntimeException("Erro ao listar os Alunos usuando o filtro = " + filtro + ". "+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -351,10 +346,12 @@ public class AlunoDAO {
                         rs.getString("data_fim_aluno"), 
                         rs.getInt("status_aluno")
                 );
+
+
             }
             return aluno;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao listar o aluno. "+ex.getMessage());
+            throw new RuntimeException("Erro ao listar um Aluno. "+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -375,7 +372,7 @@ public class AlunoDAO {
             stmt.executeUpdate();
         } 
         catch (SQLException ex) {
-            throw new RuntimeException("Erro ao deletar aluno. "+ex.getMessage());
+            throw new RuntimeException("Erro ao deletar um Aluno. "+ex.getMessage());
         }
         finally{
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -389,12 +386,11 @@ public class AlunoDAO {
         try{
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(ativarAluno); 
-            stmt.setString(1, "");
-            stmt.setInt(2, id);
+            stmt.setInt(1, id);
             stmt.executeUpdate();
         } 
         catch (SQLException ex) {
-            throw new RuntimeException("Erro ao deletar aluno. "+ex.getMessage());
+            throw new RuntimeException("Erro ao ativar um Aluno. "+ex.getMessage());
         }
         finally{
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -439,7 +435,7 @@ public class AlunoDAO {
             }
             return a;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao inserir um aluno. "+ex.getMessage());
+            throw new RuntimeException("Erro ao registrar um Aluno. "+ex.getMessage());
         } finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -455,6 +451,11 @@ public class AlunoDAO {
         try{
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(updateAluno);
+            ContatoDAO dao = new ContatoDAO();
+            dao.excluirContato(a.getId());
+            for(Contato c: a.getContatos()){
+                dao.registrarContato(c, a.getId());
+            }
             stmt.setString(1, a.getNome());
             stmt.setString(2, a.getTelefone());
             stmt.setString(3, a.getEndereco());
@@ -475,7 +476,7 @@ public class AlunoDAO {
             stmt.executeUpdate();
             
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao alterar um aluno no banco de dados. "+ex.getMessage());
+            throw new RuntimeException("Erro ao alterar um Aluno. "+ex.getMessage());
         } finally{
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
             if(con != null){try{con.close();}catch(SQLException ex){System.out.println("Erro ao fechar a Conexão. Ex="+ex.getMessage());}}
@@ -496,7 +497,7 @@ public class AlunoDAO {
             }
             return total;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao listar o aluno. "+ex.getMessage());
+            throw new RuntimeException("Erro ao calcular o total das mensalidades. "+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -520,7 +521,7 @@ public class AlunoDAO {
             }
             return total;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao listar o aluno. "+ex.getMessage());
+            throw new RuntimeException("Erro ao tentar calcular o total das mensalidades dos Alunos de um Veículo. "+ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -528,15 +529,15 @@ public class AlunoDAO {
         }
     }
 
-      public int totalAlunosNovosPeriodo(String data_inicio, String data_fim) {
+      public int totalAlunosNovosPeriodo(String inicio, String fim) {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try{
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(selectTotalAlunosNovosPeriodo);
-            stmt.setString(1, data_inicio);
-            stmt.setString(2, data_fim);
+            stmt.setString(1, inicio);
+            stmt.setString(2, fim);
             rs = stmt.executeQuery();
             int total = 0;
             while(rs.next()){
@@ -544,7 +545,7 @@ public class AlunoDAO {
             }
             return total;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao contar alunos novos. "+ex.getMessage());
+            throw new RuntimeException("Erro ao calcular o total de novos alunos entre " + inicio + " e " + fim + " ." +ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}
@@ -552,15 +553,15 @@ public class AlunoDAO {
         }
     }
 
-    public int totalAlunosCanceladosPeriodo(String data_inicio, String data_fim) {
+    public int totalAlunosCanceladosPeriodo(String inicio, String fim) {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try{
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(selectTotalAlunosCanceladosPeriodo);
-            stmt.setString(1, data_inicio);
-            stmt.setString(2, data_fim);
+            stmt.setString(1, inicio);
+            stmt.setString(2, fim);
             rs = stmt.executeQuery();
             int total = 0;
             while(rs.next()){
@@ -568,7 +569,7 @@ public class AlunoDAO {
             }
             return total;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao contar alunos cancelados. "+ex.getMessage());
+            throw new RuntimeException("Erro ao calcular o total de alunos cancelados entre . " + inicio + " e " + fim + " ." +ex.getMessage());
         }finally{
             if(rs != null){try{rs.close();}catch(SQLException ex){System.out.println("Erro ao fechar Result Set. Ex="+ex.getMessage());}}
             if(stmt != null){try{stmt.close();}catch(SQLException ex){System.out.println("Erro ao fechar o Prepared Statement. Ex="+ex.getMessage());}}

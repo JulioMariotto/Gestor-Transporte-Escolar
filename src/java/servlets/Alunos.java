@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package servlets;
 
 import bd.ConnectionFactory;
@@ -32,10 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JasperRunManager;
 
-/**
- *
- * @author julio
- */
+
 @WebServlet(name = "ClientesServlet", urlPatterns = {"/Alunos"})
 public class Alunos extends HttpServlet {
 
@@ -48,6 +41,7 @@ public class Alunos extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             
@@ -87,7 +81,7 @@ public class Alunos extends HttpServlet {
                             request.setAttribute("totalRecebidoMes", PagamentosFacade.totalRecebidoMes());
                             RequestDispatcher rd1 = getServletContext().getRequestDispatcher("/alunosListar.jsp");
                             rd1.forward(request, response);
-                            break;    
+                            break;   
                         case "visualizar":
                             int id_visualizar = Integer.parseInt(request.getParameter("id"));
                             Aluno a1 = AlunosFacade.buscar(id_visualizar);
@@ -214,9 +208,18 @@ public class Alunos extends HttpServlet {
                             RequestDispatcher rd5 = getServletContext().getRequestDispatcher("/itinerario.jsp");
                             rd5.forward(request, response);
                             break;
+                        case "ativar":
+                            int id_ativar = Integer.parseInt(request.getParameter("id"));
+                            AlunosFacade.ativar(id_ativar);
+                            Aluno a3 = AlunosFacade.buscar(id_ativar);
+                            request.setAttribute("aluno", a3);
+                            request.setAttribute("pagamentos", PagamentosFacade.listar(a3.getId()));
+                            RequestDispatcher rd6 = getServletContext().getRequestDispatcher("/alunosVisualizar.jsp");
+                            rd6.forward(request, response);
+                            break; 
                         case "itinerario":
                             int id_veiculo = Integer.parseInt((String)request.getParameter("veiculo"));
-                            String host = "http://localhost:46455/Gestor%20Escolar";
+                            String host = "http://localhost:46455/Gestor%20Escolar/Jasper";
                             String jasper = "/manha.jasper";
                             URL jasperURL = new URL(host + jasper);
                             System.out.println("id: " + id_veiculo);
@@ -237,8 +240,8 @@ public class Alunos extends HttpServlet {
                             request.setAttribute("totalReceber", AlunosFacade.totalAReceber());
                             request.setAttribute("totalRecebido", PagamentosFacade.totalRecebido());
                             request.setAttribute("totalRecebidoMes", PagamentosFacade.totalRecebidoMes());
-                            RequestDispatcher rd6 = getServletContext().getRequestDispatcher("/alunosListar.jsp");
-                            rd6.forward(request, response);
+                            RequestDispatcher rd7 = getServletContext().getRequestDispatcher("/alunosListar.jsp");
+                            rd7.forward(request, response);
                             break;
                     }
                 }

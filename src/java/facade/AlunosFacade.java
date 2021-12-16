@@ -1,21 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package facade;
 
 import beans.Aluno;
 import beans.Veiculo;
 import daos.AlunoDAO;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
-/**
- *
- * @author julio
- */
 public class AlunosFacade {
     
     public static Aluno inserir(Aluno a){
@@ -63,6 +53,11 @@ public class AlunosFacade {
     public static double totalMensalidadesVeiculo(Veiculo v) {
         AlunoDAO dao = new AlunoDAO();
         return dao.totalMensalidadesVeiculo(v);
+    }
+
+    public static void ativar(int id_ativar) {
+        AlunoDAO dao = new AlunoDAO();
+        dao.ativarAluno(id_ativar);
     }
 
 }

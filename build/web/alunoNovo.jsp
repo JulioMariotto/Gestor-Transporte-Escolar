@@ -1,9 +1,3 @@
-<%-- 
-    Document   : clientesNovo
-    Created on : 12/09/2018, 17:15:21
-    Author     : julio
---%>
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="beans.Aluno"%>
 <%@page import="beans.LoginBean"%>
@@ -154,25 +148,25 @@
                             </div>
                         </div>
                         <div class="form-group">
-                          <label class="control-label col-sm-2" for="horario_casa_ida">Horário Casa (Ida):</label>
+                          <label class="control-label col-sm-2" for="horario_casa_ida">Saída (Casa):</label>
                           <div class="col-sm-10">
                               <input type="time" class="form-control" name="horario_casa_ida">
                           </div>
                         </div>
                         <div class="form-group">
-                          <label class="control-label col-sm-2" for="horario_escola_ida">Horário Escola (Ida):</label>
+                          <label class="control-label col-sm-2" for="horario_escola_ida">Chegada (Escola):</label>
                           <div class="col-sm-10">
                               <input type="time" class="form-control" name="horario_escola_ida">
                           </div>
                         </div>
                         <div class="form-group">
-                          <label class="control-label col-sm-2" for="horario_escola_volta">Horário Escola (Volta):</label>
+                          <label class="control-label col-sm-2" for="horario_escola_volta">Sáida (Escola):</label>
                           <div class="col-sm-10">
                               <input type="time" class="form-control" name="horario_escola_volta">
                           </div>
                         </div>
                         <div class="form-group">
-                          <label class="control-label col-sm-2" for="horario_casa_ida">Horário Casa (Volta):</label>
+                          <label class="control-label col-sm-2" for="horario_casa_ida">Chegada (Casa):</label>
                           <div class="col-sm-10">
                               <input type="time" class="form-control" name="horario_casa_volta">
                           </div>
@@ -201,7 +195,7 @@
                           </div>
                         </div>
                         <div class="form-group">
-                          <label class="control-label col-sm-2" for="vencimento">Vencimento Mensalidade:</label>
+                          <label class="control-label col-sm-2" for="vencimento">Vencimento:</label>
                           <div class="col-sm-10">
                               <input type="text" class="form-control numero" maxlength=2 name="vencimento" required>
                           </div>
@@ -211,7 +205,7 @@
                     <br><br>
                     <div class="form-group"> 
                       <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-default">Registrar</button>
+                        <button type="submit" class="btn btn-default">Salvar</button>
                         <a href="Alunos" class="btn btn-default">Cancelar</a>
                       </div>
                     </div>

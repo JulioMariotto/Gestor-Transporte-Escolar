@@ -1,8 +1,3 @@
-<%-- 
-    Document   : clientesAlterar
-    Created on : 12/09/2018, 15:09:25
-    Author     : julio
---%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -29,7 +24,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js" type="text/javascript"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <title>Alterar Veículo</title>
+        <title>Alterar Motorista</title>
     </head>
     <body>
         
@@ -72,7 +67,7 @@
                     
                     <div class="form-group"> 
                       <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-default">Alterar</button>
+                        <button type="submit" class="btn btn-default">Salvar</button>
                         <a href="Motoristas" class="btn btn-default">Cancelar</a>
                       </div>
                     </div>
@@ -82,12 +77,7 @@
     </body>
 </html>
 <script type="text/javascript">
-$(".placa").mask('SSS-YAYY', {'translation': {
-    A: {pattern: /[A-Z0-9]/},
-    S: {pattern: /[A-Z]/},
-    Y: {pattern: /[0-9]/}
-  }
-});
+
 $(".telefone").mask("(00) 00000-0000");
 $(".num").mask("0#");
     

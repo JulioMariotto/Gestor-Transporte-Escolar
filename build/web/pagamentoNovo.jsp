@@ -1,8 +1,3 @@
-<%-- 
-    Document   : clientesNovo
-    Created on : 12/09/2018, 17:15:21
-    Author     : julio
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -79,7 +74,7 @@
                     </fieldset>
                 <div class="form-group"> 
                   <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">Registrar</button>
+                    <button type="submit" class="btn btn-default">Salvar</button>
                     <a href="Entradas" class="btn btn-default">Cancelar</a>
                   </div>
                 </div>

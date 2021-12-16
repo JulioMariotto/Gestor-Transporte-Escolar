@@ -1,8 +1,3 @@
-<%-- 
-    Document   : clientesNovo
-    Created on : 12/09/2018, 17:15:21
-    Author     : julio
---%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.util.Date"%>
@@ -32,7 +27,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js" type="text/javascript"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <title>Adicionar Motorista</title>
+        <title>Registrar Motorista</title>
     </head>
     <body>
         
@@ -43,7 +38,7 @@
                 
                 <form class="form-horizontal" action="Motoristas?action=novo" method="POST">
                     <fieldset>
-                        <legend>Adicionar Motorista</legend>
+                        <legend>Motorista</legend>
                         
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="nome">Nome:</label>
@@ -75,7 +70,7 @@
                     <div class="form-group"> 
                       <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-default">Adicionar</button>
-                        <a href="Veiculos" class="btn btn-default">Cancelar</a>
+                        <a href="Motoristas" class="btn btn-default">Cancelar</a>
                       </div>
                     </div>
                 </form>
@@ -84,12 +79,6 @@
     </body>
 </html>
 <script type="text/javascript">
-    $(".placa").mask('SSS-YAYY', {'translation': {
-    A: {pattern: /[A-Z0-9]/},
-    S: {pattern: /[A-Z]/},
-    Y: {pattern: /[0-9]/}
-  }
-});
 $(".telefone").mask("(00) 00000-0000");
 $(".num").mask("0#");
     

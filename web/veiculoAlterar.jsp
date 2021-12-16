@@ -1,8 +1,3 @@
-<%-- 
-    Document   : clientesAlterar
-    Created on : 12/09/2018, 15:09:25
-    Author     : julio
---%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -98,7 +93,7 @@
                     
                     <div class="form-group"> 
                       <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-default">Alterar</button>
+                        <button type="submit" class="btn btn-default">Salvar</button>
                         <a href="Veiculos" class="btn btn-default">Cancelar</a>
                       </div>
                     </div>

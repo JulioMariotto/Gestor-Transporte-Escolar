@@ -1,9 +1,3 @@
-<%-- 
-    Document   : pagamentosListar
-    Created on : 17/09/2018, 15:59:57
-    Author     : julio
---%>
-
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="beans.Veiculo"%>
 <%@page import="java.text.NumberFormat"%>
@@ -83,7 +77,7 @@
                 </div>
                 <div class="botoes col-md-12">
                     <div class="col-md-4">
-                        <a href="Veiculos?action=form-novo"><button type="button" class="btn btn-success">Adicionar Veículo</button></a>
+                        <a href="Veiculos?action=form-novo"><button type="button" class="btn btn-success">Registrar Veículo</button></a>
                     </div>
                     
                 </div>

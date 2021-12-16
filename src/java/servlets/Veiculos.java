@@ -1,25 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import beans.Abastecimento;
-import beans.Dispesa;
+import beans.Despesa;
 import beans.LoginBean;
-import beans.Manutencao;
 import beans.Veiculo;
 import facade.AbastecimentosFacade;
 import facade.AlunosFacade;
-import facade.DispesaFacade;
+import facade.DespesaFacade;
 import facade.ManutencaoFacade;
 import facade.MotoristasFacade;
-import facade.PagamentosFacade;
 import facade.VeiculoFacade;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,10 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author julio
- */
+
 @WebServlet(name = "Veiculos", urlPatterns = {"/Veiculos"})
 public class Veiculos extends HttpServlet {
 
@@ -44,6 +33,7 @@ public class Veiculos extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             
@@ -96,7 +86,7 @@ public class Veiculos extends HttpServlet {
                             int id_motorista = Integer.parseInt(request.getParameter("motorista"));
                             int kilometragem = Integer.parseInt(request.getParameter("kilometragem"));
                             Veiculo v1 = VeiculoFacade.inserir(new Veiculo(0, num_veiculo, placa_veiculo, lic_veiculo, cap_veiculo, modelo_veiculo, cor_veiculo, MotoristasFacade.buscar(id_motorista)));
-                            Dispesa d = DispesaFacade.registrar(new Dispesa(0, 0.0, AbastecimentosFacade.getData(), "Registro da Kilometragem de veículo, NÃO EXCLUIR!"));
+                            Despesa d = DespesaFacade.registrar(new Despesa(0, 0.0, AbastecimentosFacade.getData(), "Registro da Kilometragem de veículo, NÃO EXCLUIR!"));
                             AbastecimentosFacade.registrarAbastecimento(new Abastecimento(v1, d, kilometragem, 0, "Registro de KM"));
                             response.sendRedirect("Veiculos?action=visualizar&id="+ v1.getId());
                             break;

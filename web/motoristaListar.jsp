@@ -1,9 +1,3 @@
-<%-- 
-    Document   : pagamentosListar
-    Created on : 17/09/2018, 15:59:57
-    Author     : julio
---%>
-
 <%@page import="beans.Veiculo"%>
 <%@page import="java.text.NumberFormat"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -65,7 +59,7 @@
         <div class="container" style="padding-top: 1%">
             
             <h2>Motoristas</h2>
-            <a href="Motoristas?action=form-novo"><button type="button" class="btn btn-success">Adicionar Motorista</button></a>
+            <a href="Motoristas?action=form-novo"><button type="button" class="btn btn-success">Registrar Motorista</button></a>
             <br><br>
             <div class="tabela">
             <table class="table" style="max-height: 200px; overflow: auto">

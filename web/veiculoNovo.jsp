@@ -1,8 +1,3 @@
-<%-- 
-    Document   : clientesNovo
-    Created on : 12/09/2018, 17:15:21
-    Author     : julio
---%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.util.Date"%>
@@ -82,7 +77,7 @@
                           </div>
                         </div>
                         <div class="form-group manutencao abastecimento">
-                          <label class="control-label col-sm-2" for="km">Kilometragem:</label>
+                          <label class="control-label col-sm-2" for="km">Quilometragem:</label>
                           <div class="col-sm-10">
                               <input type="text" class="form-control numero" name="kilometragem">
                           </div>
@@ -104,7 +99,7 @@
                     
                     <div class="form-group"> 
                       <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-default">Registrar</button>
+                        <button type="submit" class="btn btn-default">Salvar</button>
                         <a href="Veiculos" class="btn btn-default">Cancelar</a>
                       </div>
                     </div>
