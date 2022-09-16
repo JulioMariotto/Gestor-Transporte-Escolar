@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.0.final using JasperReports Library version 6.12.1-ac0eebdb29e4c0985457bab279a6db744d661530  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Alunos" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13acf49e-4913-4d1b-bccc-113817ad15d1">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter1.xml"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="mes_ref" class="java.lang.String">
+		<defaultValueExpression><![CDATA[2022-01-01]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT 
+	aluno.nome_aluno, 
+    escola.nome_escola, 
+    aluno.periodo_aluno, 
+    aluno.turma_aluno, 
+    aluno.valor_mensalidade_aluno, 
+    aluno.vencimento_aluno, 
+	
+    CASE  
+		when aluno.id_aluno not in (
+			select pagamento.id_aluno from pagamento 
+				where pagamento.mes_referencia =  $P{mes_ref}  ) 
+	THEN 'Pendente' else 'Pago' end as pago,
+    
+    (select sum(pagamento.valor_pago) 
+		from pagamento 
+        where pagamento.id_aluno = aluno.id_aluno
+	) as total_pago,
+    
+    datediff(CURRENT_DATE(), aluno.data_inicio_aluno) as dias_contrato
+    
+    from aluno, escola 
+		where aluno.status_aluno = 1
+        and aluno.id_escola_aluno = escola.id_escola 
+        order by nome_aluno]]>
+	</queryString>
+	<field name="nome_aluno" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome_aluno"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="nome_escola" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome_escola"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="escola"/>
+	</field>
+	<field name="periodo_aluno" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="periodo_aluno"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="turma_aluno" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="turma_aluno"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="valor_mensalidade_aluno" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.label" value="valor_mensalidade_aluno"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="vencimento_aluno" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="vencimento_aluno"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aluno"/>
+	</field>
+	<field name="pago" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pago"/>
+	</field>
+	<field name="total_pago" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="total_pago"/>
+	</field>
+	<field name="dias_contrato" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="dias_contrato"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="132" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="228" height="95" backcolor="#000000" uuid="6c6ca4e1-17cd-4913-93d6-5e670ea9ae8a"/>
+				<staticText>
+					<reportElement style="Title" x="0" y="0" width="228" height="66" uuid="a2a2cac8-5a7d-4487-8c54-dab235ce4e21"/>
+					<textElement>
+						<font isBold="false"/>
+					</textElement>
+					<text><![CDATA[ALUNOS]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="100" width="550" height="32" forecolor="#000000" backcolor="#CCCCCC" uuid="e3c14156-5b51-4201-918b-97fdc012e5d4"/>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="0" y="10" width="132" height="20" forecolor="#FFFFFF" uuid="5c3301e7-a737-4c59-8a2f-a6c79fd1adb8"/>
+					<textElement textAlignment="Left">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField pattern="MMMMM yyyy">
+					<reportElement style="SubTitle" x="0" y="-45" width="212" height="40" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="e6dfc438-01f0-415c-8a88-a2977ecd63c9"/>
+					<textElement textAlignment="Left">
+						<font size="22" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[(new SimpleDateFormat("yyyy-MM-dd")).parse($P{mes_ref})]]></textFieldExpression>
+				</textField>
+			</frame>
+			<image>
+				<reportElement x="229" y="20" width="321" height="110" uuid="9f99969a-68ff-46bc-87e2-09e29dfc490c"/>
+				<imageExpression><![CDATA["http://localhost:8080/Gestor%20Escolar/Images/logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="60" y="0" width="100" height="26" uuid="f319d790-5ac7-4e2f-9231-bc52147ae5fb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="be130f6c-22a5-49d6-ab36-e26134f08d22"/>
+				</reportElement>
+				<text><![CDATA[valor_mensalidade_aluno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="229" y="0" width="100" height="26" uuid="381717ff-3b17-41a9-ab1e-e94cabce40d9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="93e5b9cb-7ac2-43de-9de5-93f56169cd63"/>
+				</reportElement>
+				<text><![CDATA[vencimento_aluno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="261" y="0" width="100" height="26" uuid="15fef499-b20a-448b-ac98-d3f9c6f37591">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d5a0a488-7516-410f-b1e4-a23a618139c9"/>
+				</reportElement>
+				<text><![CDATA[total_pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="100" height="26" uuid="949197e0-ef19-4c79-87a2-0b8b34c88a91">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="795f984c-16b1-4adc-8371-798119c79c26"/>
+				</reportElement>
+				<text><![CDATA[dias_contrato]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="0" width="100" height="26" uuid="e9440be8-3b60-41cf-a9d5-2ab4b8bf0038">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1d2e2f8b-404b-48b0-9792-6902cd3c8c35"/>
+				</reportElement>
+				<text><![CDATA[pago]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="-26" width="555" height="26" uuid="b50221b5-8254-440b-8c6f-1f0b138c9259"/>
+				<textField>
+					<reportElement x="0" y="0" width="552" height="26" uuid="1f17e2e5-c16d-43f4-b21b-48be7679bdd4">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="95bf496b-ebaf-4918-9646-f5f40b684d44"/>
+					</reportElement>
+					<textElement verticalAlignment="Bottom">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nome_aluno}.concat( " - " + $F{nome_escola} + " - " + $F{periodo_aluno} + " - " + $F{turma_aluno})]]></textFieldExpression>
+				</textField>
+			</frame>
+			<textField pattern="¤#,##0.##;¤-#,##0.##">
+				<reportElement x="62" y="0" width="38" height="20" uuid="ae341566-22fc-47f5-b39b-45a2f1159964">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="be130f6c-22a5-49d6-ab36-e26134f08d22"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{valor_mensalidade_aluno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="60" height="20" uuid="718af390-2322-4ab0-95b2-b27c40e2e5d4"/>
+				<text><![CDATA[Mensalidade:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="166" y="0" width="24" height="20" uuid="4aeeb274-163d-4452-bad5-c666be1d20ff">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="93e5b9cb-7ac2-43de-9de5-93f56169cd63"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{vencimento_aluno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="110" y="0" width="56" height="20" uuid="af9befdc-dd24-4135-ab83-aa6b4e09a2a1"/>
+				<text><![CDATA[Vencimento:]]></text>
+			</staticText>
+			<textField pattern="¤#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
+				<reportElement x="260" y="0" width="50" height="20" uuid="cb7faff3-dbe7-4f90-ac5a-bcd631736395">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d5a0a488-7516-410f-b1e4-a23a618139c9"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{total_pago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="389" y="0" width="44" height="20" uuid="5c268de8-1c2a-4eae-81be-2ee95adb0aa1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="795f984c-16b1-4adc-8371-798119c79c26"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{dias_contrato}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="484" y="0" width="68" height="20" uuid="0af3118f-ff53-4483-9e01-18f1e809efb5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1d2e2f8b-404b-48b0-9792-6902cd3c8c35"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{pago}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="200" y="0" width="62" height="20" uuid="b6eb621b-92b7-4ceb-8b6a-12e470eaf246">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<text><![CDATA[Total já pago:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="313" y="0" width="76" height="20" uuid="ac58d0e1-8397-40f6-aef5-d2023dd1e0c7"/>
+				<text><![CDATA[Dias de contrato:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="438" y="0" width="42" height="20" uuid="6d11b0d0-ae1f-4ab9-a075-46cf1a8d2639">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<text><![CDATA[Situação:]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="1133a906-5b71-476e-9f3e-bc97c97058c1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="1" width="555" height="24" forecolor="#D0B48E" backcolor="#000000" uuid="729c3539-f946-4d0e-a0a7-bda2815ea1b0"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="513" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="4834e99c-7f6c-485a-b098-50e5187f2ab4"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="433" y="0" width="80" height="20" forecolor="#FFFFFF" uuid="9825b46e-76f1-469a-abb8-a1cc27aad685"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="1" width="197" height="20" forecolor="#FFFFFF" uuid="137d38c7-1a83-4fc5-b156-9d5f1b1a0ddc"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

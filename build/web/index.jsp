@@ -39,10 +39,10 @@
             ${msg}
         </div>
         </c:if>
-        <h2 class="titulo">SISTEMA DE GESTÃO PARA TRANSPORTADORES ESCOLARES</h2>
+        <h2 class="titulo">SISTEMA GERENCIADOR DE FROTA ESCOLAR</h2>
         <div style="text-align: center; width: 30%; margin-left: 35%">
             
-            <img src="http://localhost:46455/Gestor%20Escolar/Images/logo.png" alt="SISTEMA DE GESTÃO PARA TRANSPORTADORES ESCOLARES" class="imagem"/>
+            <img src="https://i.imgur.com/tnKP2eU.png" alt="SISTEMA DE GESTÃO PARA TRANSPORTADORES ESCOLARES" class="imagem"/>
             <form action="Login" method="Post">
                 <div class="form-group">
                     <label><b>Login:</b></label>

@@ -60,7 +60,7 @@ public class Relatorios extends HttpServlet {
                             if(mes_ref.isEmpty()){
                                 mes_ref = getMesAno() + "-01";
                             }
-                            String host_alunos = "http://localhost:46455/Gestor%20Escolar/Jasper";
+                            String host_alunos = "http://localhost:8080/Gestor%20Escolar/Jasper";
                             String jasper_alunos = "/Alunos.jasper";
                             URL jasperURL_alunos = new URL(host_alunos + jasper_alunos);
                       
@@ -84,7 +84,7 @@ public class Relatorios extends HttpServlet {
                                 }
                                 data_inicio_entradas = "2000-01-01";
                             }
-                            String host_entradas = "http://localhost:46455/Gestor%20Escolar/Jasper";
+                            String host_entradas = "http://localhost:8080/Gestor%20Escolar/Jasper";
                             String jasper__entradas = "/Entradas.jasper";
                             URL jasperURL = new URL(host_entradas + jasper__entradas);
                       
@@ -109,7 +109,7 @@ public class Relatorios extends HttpServlet {
                                 }
                                 data_inicio_saidas = "2000-01-01";
                             }
-                            String host_saidas = "http://localhost:46455/Gestor%20Escolar/Jasper";
+                            String host_saidas = "http://localhost:8080/Gestor%20Escolar/Jasper";
                             String jasper__saidas = "/Saidas.jasper";
                             URL jasperURL_saidas = new URL(host_saidas + jasper__saidas);
                       

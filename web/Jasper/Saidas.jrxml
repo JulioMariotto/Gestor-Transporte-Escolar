@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.0.final using JasperReports Library version 6.12.1-ac0eebdb29e4c0985457bab279a6db744d661530  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Alunos" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13acf49e-4913-4d1b-bccc-113817ad15d1">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter1.xml"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="data_inicio" class="java.lang.String"/>
+	<parameter name="data_fim" class="java.lang.String">
+		<defaultValueExpression><![CDATA[2022-01-01]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[select *
+from despesa 
+where data_despesa 
+between  $P{data_inicio}  and $P{data_fim}]]>
+	</queryString>
+	<field name="id_despesa" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="id_despesa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="despesa"/>
+	</field>
+	<field name="valor_despesa" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.label" value="valor_despesa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="despesa"/>
+	</field>
+	<field name="data_despesa" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="data_despesa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="despesa"/>
+	</field>
+	<field name="descricao_despesa" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="descricao_despesa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="despesa"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="170" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="310" height="95" backcolor="#000000" uuid="6c6ca4e1-17cd-4913-93d6-5e670ea9ae8a"/>
+				<staticText>
+					<reportElement style="Title" x="2" y="0" width="230" height="66" uuid="a2a2cac8-5a7d-4487-8c54-dab235ce4e21"/>
+					<textElement>
+						<font size="42" isBold="false"/>
+					</textElement>
+					<text><![CDATA[SAÍDAS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="100" y="60" width="20" height="30" forecolor="#FFFFFF" uuid="44e0ed52-ae1c-4041-8d93-b67ec3c68c9c"/>
+					<textElement textAlignment="Center" verticalAlignment="Top"/>
+					<text><![CDATA[-]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="100" width="550" height="32" forecolor="#000000" backcolor="#CCCCCC" uuid="e3c14156-5b51-4201-918b-97fdc012e5d4"/>
+				<textField pattern="EEEEE, dd/MM/yyyy">
+					<reportElement x="0" y="10" width="180" height="20" forecolor="#FFFFFF" uuid="5c3301e7-a737-4c59-8a2f-a6c79fd1adb8"/>
+					<textElement textAlignment="Left">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement style="SubTitle" x="0" y="-45" width="100" height="40" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="e6dfc438-01f0-415c-8a88-a2977ecd63c9"/>
+					<textElement textAlignment="Right">
+						<font size="18" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[(new SimpleDateFormat("yyyy-MM-dd")).parse($P{data_inicio})]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement style="SubTitle" x="120" y="-45" width="100" height="40" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="b3400a08-97b3-4109-bdd3-87109284e627"/>
+					<textElement textAlignment="Left">
+						<font size="18" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[(new SimpleDateFormat("yyyy-MM-dd")).parse($P{data_fim})]]></textFieldExpression>
+				</textField>
+			</frame>
+			<image>
+				<reportElement x="310" y="20" width="240" height="110" uuid="9f99969a-68ff-46bc-87e2-09e29dfc490c"/>
+				<imageExpression><![CDATA["http://localhost:8080/Gestor%20Escolar/Images/logo.png"]]></imageExpression>
+			</image>
+			<subreport>
+				<reportElement x="0" y="134" width="150" height="35" uuid="e20c72f7-2dd9-4b2c-bdde-9c5ca7291e41">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<subreportParameter name="data_fim">
+					<subreportParameterExpression><![CDATA[$P{data_fim}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="data_inicio">
+					<subreportParameterExpression><![CDATA[$P{data_inicio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["http://localhost:8080/Gestor%20Escolar/Jasper/total_saidas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="0" width="353" height="20" uuid="59d74e2c-c2eb-44c2-94b4-88d2425438ae"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[DESCRIÇÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="353" y="0" width="120" height="20" uuid="899fa589-c4d6-4b27-8121-926a61d4786f"/>
+				<text><![CDATA[DATA DESPESA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="473" y="0" width="80" height="20" uuid="a7eaca4a-52e0-4c03-915e-e48bd2d4ad80"/>
+				<text><![CDATA[VALOR]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="0" y="0" width="353" height="16" uuid="395f5d89-ea36-4449-ab06-e860925df047">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descricao_despesa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="353" y="0" width="120" height="16" uuid="af497310-99c0-4a25-a9ba-dcd5fb60fd5c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{data_despesa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤#,##0.##;¤-#,##0.##">
+				<reportElement x="473" y="0" width="80" height="16" uuid="8bdc3130-d53e-4aef-b5a0-befb74df98d1"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valor_despesa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="1133a906-5b71-476e-9f3e-bc97c97058c1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="1" width="555" height="24" forecolor="#D0B48E" backcolor="#000000" uuid="729c3539-f946-4d0e-a0a7-bda2815ea1b0"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="513" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="4834e99c-7f6c-485a-b098-50e5187f2ab4"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="433" y="0" width="80" height="20" forecolor="#FFFFFF" uuid="9825b46e-76f1-469a-abb8-a1cc27aad685"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="1" width="197" height="20" forecolor="#FFFFFF" uuid="137d38c7-1a83-4fc5-b156-9d5f1b1a0ddc"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="39" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<subreport>
+				<reportElement x="405" y="4" width="150" height="35" uuid="593f4dda-df1e-47c0-945b-ee4baf0673a0">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<subreportParameter name="data_fim">
+					<subreportParameterExpression><![CDATA[$P{data_fim}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="data_inicio">
+					<subreportParameterExpression><![CDATA[$P{data_inicio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["http://localhost:8080/Gestor%20Escolar/Jasper/total_saidas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

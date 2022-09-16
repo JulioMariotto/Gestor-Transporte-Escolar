@@ -1,7 +1,7 @@
 <nav class="navbar navbar-inverse" style="border-radius: 0">
   <div class="container-fluid">
     <div class="navbar-header">
-      <img src="http://localhost:46455/Gestor%20Escolar/Images/logo.png" alt="SISTEMA DE GESTÃO PARA TRANSPORTADORES ESCOLARES" class="navbar-brand" style="padding: 0"/>
+      <img src="https://i.imgur.com/tnKP2eU.png" alt="SISTEMA DE GESTÃO PARA TRANSPORTADORES ESCOLARES" class="navbar-brand" style="padding: 0"/>
     </div>
     <ul class="nav navbar-nav">
            <c:if test="${marcador == 1}">

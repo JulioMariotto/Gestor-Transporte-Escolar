@@ -14,7 +14,7 @@ import java.util.List;
 public class EscolaDAO {
     
     private final String selectEscola = "SELECT * FROM escola WHERE id_escola = ?";
-    private final String selectEscolas = "SELECT * FROM escola ORDER BY nome_escola DESC";
+    private final String selectEscolas = "SELECT * FROM escola ORDER BY nome_escola";
     private final String insertEscola = "INSERT INTO escola (nome_escola, telefone_escola, endereco_escola) VALUES (?, ?, ?)";
     private final String deleteEscola = "DELETE FROM escola WHERE id_escola = ?";
     

@@ -11,7 +11,7 @@ public class ConnectionFactory {
     public static Connection getConnection(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            return DriverManager.getConnection("jdbc:mysql://localhost/sgte?useTimezone=true&serverTimezone=UTC&useSSL=false","root", "root.adm00");
+            return DriverManager.getConnection("jdbc:mysql://192.168.1.2/sgte?useTimezone=true&serverTimezone=UTC&useSSL=false","root", "root.adm00");
         } 
         catch (SQLException e) {
             throw new RuntimeException(e);

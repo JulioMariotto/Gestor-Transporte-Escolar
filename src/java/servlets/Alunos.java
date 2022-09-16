@@ -170,6 +170,7 @@ public class Alunos extends HttpServlet {
                             List<Veiculo> veiculos = VeiculoFacade.buscar();
                             request.setAttribute("escolas", escolas);
                             request.setAttribute("veiculos", veiculos);
+                            request.setAttribute("data", new Date());
                             RequestDispatcher rd4 = getServletContext().getRequestDispatcher("/alunoNovo.jsp");
                             rd4.forward(request, response);
                             break;
@@ -222,10 +223,9 @@ public class Alunos extends HttpServlet {
                             Float mensalidade_novo = Float.parseFloat((String)request.getParameter("mensalidade").replace(',', '.'));
                             int vencimento_novo = Integer.parseInt((String)request.getParameter("vencimento"));
                             
-                            SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd"); 
-                            String data = fmt.format(new Date()); 
+                            String data_inicio = (String)request.getParameter("data-inicio");
             
-                            Aluno novo = new Aluno(0, nome_novo, telefone_novo, endereco_novo, data_novo, nome_responsavel_novo, cpf_responsavel_novo, lista_c, veiculo_novo, escola_novo, periodo_novo, turma_novo, horario_casa_ida_novo, horario_escola_ida_novo, horario_escola_volta_novo, horario_casa_volta_novo, mensalidade_novo, vencimento_novo, data, "0000-00-00", 1);
+                            Aluno novo = new Aluno(0, nome_novo, telefone_novo, endereco_novo, data_novo, nome_responsavel_novo, cpf_responsavel_novo, lista_c, veiculo_novo, escola_novo, periodo_novo, turma_novo, horario_casa_ida_novo, horario_escola_ida_novo, horario_escola_volta_novo, horario_casa_volta_novo, mensalidade_novo, vencimento_novo, data_inicio, "0000-00-00", 1);
                             novo = AlunosFacade.inserir(novo);
                             response.sendRedirect("Alunos?action=visualizar&id="+novo.getId());
                             break;
@@ -235,18 +235,30 @@ public class Alunos extends HttpServlet {
                             RequestDispatcher rd5 = getServletContext().getRequestDispatcher("/itinerario.jsp");
                             rd5.forward(request, response);
                             break;
+                        case "form-escola":
+                            RequestDispatcher rd6 = getServletContext().getRequestDispatcher("/escolaNovo.jsp");
+                            rd6.forward(request, response);
+                            break;
+                        case "nova-escola":
+                            String nome_escola = (String) request.getParameter("nome");
+                            String telefone_escole = (String) request.getParameter("telefone");
+                            String endereco_escola = (String) request.getParameter("endereco");
+                            Escola nova_escola = new Escola(0, nome_escola, telefone_escole, endereco_escola);
+                            EscolaFacade.inserir(nova_escola);
+                            response.sendRedirect("Alunos");
+                            break;
                         case "ativar":
                             int id_ativar = Integer.parseInt(request.getParameter("id"));
                             AlunosFacade.ativar(id_ativar);
                             Aluno a3 = AlunosFacade.buscar(id_ativar);
                             request.setAttribute("aluno", a3);
                             request.setAttribute("pagamentos", PagamentosFacade.listar(a3.getId()));
-                            RequestDispatcher rd6 = getServletContext().getRequestDispatcher("/alunosVisualizar.jsp");
-                            rd6.forward(request, response);
+                            RequestDispatcher rd7 = getServletContext().getRequestDispatcher("/alunosVisualizar.jsp");
+                            rd7.forward(request, response);
                             break; 
                         case "itinerario":
-                            int id_veiculo = Integer.parseInt((String)request.getParameter("veiculo"));
-                            String host = "http://localhost:46455/Gestor%20Escolar/Jasper";
+                            String id_veiculo = (String)request.getParameter("veiculo");
+                            String host = "http://localhost:8080/Gestor%20Escolar/Jasper";
                             String jasper = "/manha.jasper";
                             URL jasperURL = new URL(host + jasper);
                             System.out.println("id: " + id_veiculo);
@@ -267,8 +279,8 @@ public class Alunos extends HttpServlet {
                             request.setAttribute("totalReceber", AlunosFacade.totalAReceber());
                             request.setAttribute("totalRecebido", PagamentosFacade.totalRecebido());
                             request.setAttribute("totalRecebidoMes", PagamentosFacade.totalRecebidoMes());
-                            RequestDispatcher rd7 = getServletContext().getRequestDispatcher("/alunosListar.jsp");
-                            rd7.forward(request, response);
+                            RequestDispatcher rd8 = getServletContext().getRequestDispatcher("/alunosListar.jsp");
+                            rd8.forward(request, response);
                             break;
                     }
                 }

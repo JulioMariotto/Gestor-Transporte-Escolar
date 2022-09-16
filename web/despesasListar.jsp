@@ -102,6 +102,7 @@
                     <button type="button" class="btn btn-danger  btn-right" onclick="listarDespesas('ano'  )">Despesas deste Ano</button>
                     <button type="button" class="btn btn-warning btn-right" onclick="listarDespesas('mes'  )">Despesas deste Mês</button>
                     <button type="button" class="btn btn-primary btn-right" onclick="listarDespesas('todos')">Todas as Despesas</button>                    
+                    <a href="http://192.168.1.3:8080/Gestor%20Escolar/pdf/despesas.pdf" target="_blank" title="Imprimir Formulário"><button type="button" class="btn btn-info btn-right">Formulário de Despesas</button></a>
                 </div>
                 <div class="form-group filtros">
                     <label class="control-label col-sm-label">De: </label>

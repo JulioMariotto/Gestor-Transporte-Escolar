@@ -66,7 +66,7 @@ public class Entradas extends HttpServlet {
                                 rd1.forward(request, response);
                                 break;    
                             case "form-novo":
-                                request.setAttribute("alunos", AlunosFacade.buscar());
+                                request.setAttribute("alunos", AlunosFacade.buscarAlunosAtivos());
                                 request.setAttribute("data", new Date());
                                 RequestDispatcher rd2 = getServletContext().getRequestDispatcher("/pagamentoNovo.jsp");
                                 rd2.forward(request, response);

@@ -33,7 +33,6 @@
                 position: fixed
             }
             .tabela {
-                max-height: 340px;
                 float: left;
                 overflow: auto;
                 width: 100%;
@@ -102,13 +101,17 @@
                     <div class="col-md-4">
                         <a href="Alunos?action=form-novo" title="Registrar Aluno"><button type="button" class="btn btn-success">Novo Aluno</button></a>
                         <a href="Alunos?action=form-itinerario" title="Ver Itinerário"><button type="button" class="btn btn-danger">Itinerário</button></a>
+                        <a href="Alunos?action=form-escola" title="Registrar Escola"><button type="button" class="btn btn-warning">Cadastrar Escola</button></a>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <div class="filtro"><input type="text" placeholder="Digite aqui para buscar um Aluno" class="input-filtro" onkeyup="filtraAlunos(this.value)"></div>
                     </div>
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-primary float-right" title="Ver Alunos Ativos" id="btn-ativos" onclick="listaAlunos('ativos')">Alunos Ativos</button>
-                        <button type="button" class="btn btn-default float-right" title="Ver Todos os Alunos" id="btn-todos" onclick="listaAlunos('todos')">Todos os Alunos</button>
+                    <div class="col-md-3">
+                        <a href="http://192.168.1.3:8080/Gestor%20Escolar/pdf/contrato.pdf" target="_blank"><button type="button" class="btn btn-info float-right" title="Imprimir Contrato">Contrato.pdf</button></a>
+                        <div class="btn-group float-right">
+                            <button type="button" class="btn btn-primary" title="Ver Alunos Ativos" id="btn-ativos" onclick="listaAlunos('ativos')">Ativos</button>
+                            <button type="button" class="btn btn-default" title="Ver Todos os Alunos" id="btn-todos" onclick="listaAlunos('todos')">Todos</button>
+                         </div>
                     </div>
                 </div>
                 

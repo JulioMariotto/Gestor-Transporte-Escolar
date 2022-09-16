@@ -1,5 +1,5 @@
 
-CREATE SCHEMA `escolar`;
+CREATE SCHEMA `sgte`;
 
 DROP TABLE IF EXISTS `escolar`.`usuario`;
 DROP TABLE IF EXISTS `escolar`.`aluno`;

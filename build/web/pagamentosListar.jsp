@@ -97,6 +97,7 @@
                     <button type="button" class="btn btn-danger  btn-right" onclick="listarPagamentos('ano'  )">Total deste Ano     </button>
                     <button type="button" class="btn btn-warning btn-right" onclick="listarPagamentos('mes'  )">Pagamentos deste Mês</button>
                     <button type="button" class="btn btn-primary btn-right" onclick="listarPagamentos('todos')">Todos os Pagamentos </button>
+                    <a href="http://192.168.1.3:8080/Gestor%20Escolar/pdf/pagamentos.pdf" target="_blank" title="Imprimir Formulário"><button type="button" class="btn btn-info btn-right">Formulário de Pagamentos</button></a>                    
                 </div>
                 <div class="form-group filtros">
                     <label class="control-label col-sm-label">De: </label>

@@ -75,6 +75,7 @@
                         <input type="date" class="form-control" value="<fmt:formatDate value="${data}" pattern="yyyy-MM-dd" />" name="data_fim">
                       </div>
                       <button type="submit" class="btn btn-default">Gerar Relatório</button>
+                      
                     </form>
                 </div>
                 <div class="col-md-12">
@@ -225,7 +226,7 @@
       function drawChart3() {
           
         var data = google.visualization.arrayToDataTable([
-          ['2021', 'Km'],
+          ['${ano}', 'Km'],
           ['Jan', ${km[1]}],
           ['Fev', ${km[2]}],
           ['Mar', ${km[3]}],

@@ -1,4 +1,11 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@page import="java.util.Locale"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.List"%>
 <%@page import="beans.Aluno"%>
 <%@page import="beans.LoginBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -200,6 +207,12 @@
                               <input type="text" class="form-control numero" maxlength=2 name="vencimento" required>
                           </div>
                         </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="data">Data de Inicio:</label>
+                            <div class="col-sm-10">
+                                <input type="date" name="data-inicio" class="form-control" required value="<fmt:formatDate value="${data}"pattern="yyyy-MM-dd" />">
+                            </div>
+                          </div>
                         
                     </fieldset>
                     <br><br>
