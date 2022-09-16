@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jdbcDataAdapter class="net.sf.jasperreports.data.jdbc.JdbcDataAdapterImpl"><name>BD Connection</name><driver>com.mysql.jdbc.Driver</driver><username>root</username><password>root.adm00</password><savePassword>true</savePassword><url>jdbc:mysql://192.168.1.2/sgfe?useTimezone=true&amp;serverTimezone=UTC&amp;useSSL=false</url><database></database><serverAddress></serverAddress><classpath>C:\Julio\Gestor-Transporte-Escolar\biblioteca\mysql-connector-java-5.1.49-bin.jar</classpath></jdbcDataAdapter>
