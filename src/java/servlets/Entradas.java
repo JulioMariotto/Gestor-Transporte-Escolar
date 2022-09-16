@@ -77,6 +77,8 @@ public class Entradas extends HttpServlet {
                                 String valor_format = (String)request.getParameter("valor");
                                 valor_format = valor_format.replace(".", "");
                                 valor_format = valor_format.replace(",", ".");
+                                valor_format = valor_format.replace("R$", "");
+                                valor_format = valor_format.replace(" ", "");
                                 double valor = Double.parseDouble(valor_format);
                                 String data = (String)request.getParameter("data");
                                 Aluno a = AlunosFacade.buscar(id_aluno);

@@ -7,7 +7,7 @@
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
 	</parameter>
 	<queryString language="SQL">
-		<![CDATA[SELECT horario_casa_ida as horario, GROUP_CONCAT(SUBSTRING_INDEX( nome_aluno, ' ', 2 ) SEPARATOR ', ') as alunos, 'Casa' as local, endereco_aluno as endereco
+		<![CDATA[SELECT horario_casa_ida as horario, GROUP_CONCAT(SUBSTRING_INDEX( nome_aluno, ' ', 1 ) SEPARATOR ', ') as alunos, 'Casa' as local, endereco_aluno as endereco
 	FROM aluno where status_aluno = 1 
 	and id_veiculo_aluno = $P{id_veiculo} 
 	and horario_casa_ida between '16:00:00' and '19:00:00'
@@ -15,7 +15,7 @@
     
     UNION ALL
 	
-    SELECT aluno.horario_escola_ida as horario, GROUP_CONCAT(SUBSTRING_INDEX( nome_aluno, ' ', 2 ) SEPARATOR ', ') as alunos, 'Escola' as local, escola.endereco_escola as endereco
+    SELECT aluno.horario_escola_ida as horario, GROUP_CONCAT(SUBSTRING_INDEX( nome_aluno, ' ', 1 ) SEPARATOR ', ') as alunos, 'Escola' as local, escola.endereco_escola as endereco
 	FROM aluno, escola where status_aluno = 1
     and aluno.id_escola_aluno = escola.id_escola
 	and aluno.id_veiculo_aluno =  $P{id_veiculo} 
@@ -24,7 +24,7 @@
 	
     UNION ALL
     
-    SELECT horario_casa_volta as horario, GROUP_CONCAT(SUBSTRING_INDEX( nome_aluno, ' ', 2 ) SEPARATOR ', ') as alunos, 'Casa' as local, endereco_aluno as endereco
+    SELECT horario_casa_volta as horario, GROUP_CONCAT(SUBSTRING_INDEX( nome_aluno, ' ', 1 ) SEPARATOR ', ') as alunos, 'Casa' as local, endereco_aluno as endereco
 	FROM aluno where status_aluno = 1 
 	and id_veiculo_aluno =  $P{id_veiculo} 
 	and horario_casa_volta between '16:00:00' and '19:00:00'
@@ -32,7 +32,7 @@
     
     UNION ALL
     
-    SELECT aluno.horario_escola_volta as horario, GROUP_CONCAT(SUBSTRING_INDEX( nome_aluno, ' ', 2 ) SEPARATOR ', ') as alunos, 'Escola' as local, escola.endereco_escola as endereco
+    SELECT aluno.horario_escola_volta as horario, GROUP_CONCAT(SUBSTRING_INDEX( nome_aluno, ' ', 1 ) SEPARATOR ', ') as alunos, 'Escola' as local, escola.endereco_escola as endereco
 	FROM aluno, escola where status_aluno = 1
     and aluno.id_escola_aluno = escola.id_escola
 	and id_veiculo_aluno =  $P{id_veiculo} 

@@ -3,7 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/julio/OneDrive/Área%20de%20Trabalho/Gestor-Transporte-Escolar/web/relatorio.jsp</file>
+            <file>file:/C:/Users/julio/OneDrive/Área%20de%20Trabalho/Gestor-Transporte-Escolar/src/java/daos/AbastecimentoDAO.java</file>
             <file>file:/C:/Users/julio/OneDrive/Área%20de%20Trabalho/Gestor-Transporte-Escolar/src/java/bd/ConnectionFactory.java</file>
+            <file>file:/C:/Users/julio/OneDrive/Área%20de%20Trabalho/Gestor-Transporte-Escolar/src/java/servlets/Alunos.java</file>
+            <file>file:/C:/Users/julio/OneDrive/Área%20de%20Trabalho/Gestor-Transporte-Escolar/web/alunosListar.jsp</file>
+            <file>file:/C:/Users/julio/OneDrive/Área%20de%20Trabalho/Gestor-Transporte-Escolar/src/java/servlets/Relatorios.java</file>
+            <file>file:/C:/Users/julio/OneDrive/Área%20de%20Trabalho/Gestor-Transporte-Escolar/src/java/facade/AlunosFacade.java</file>
+            <file>file:/C:/Users/julio/OneDrive/Área%20de%20Trabalho/Gestor-Transporte-Escolar/src/java/daos/AlunoDAO.java</file>
+            <file>file:/C:/Users/julio/OneDrive/Área%20de%20Trabalho/Gestor-Transporte-Escolar/src/java/facade/RelatoriosFacade.java</file>
+            <file>file:/C:/Users/julio/OneDrive/Área%20de%20Trabalho/Gestor-Transporte-Escolar/src/java/servlets/Entradas.java</file>
         </group>
     </open-files>
 </project-private>
